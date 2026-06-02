@@ -6,6 +6,15 @@ import { buildStoryCards, type StoryCard } from './story';
 import { conceptLabel, validateMission } from './validation';
 import type { RunCodeResponse } from './types';
 
+const STORY_BADGES: Record<StoryCard['kind'], string> = {
+  start: 'Go',
+  memory: 'Box',
+  change: 'Swap',
+  say: 'Talk',
+  error: 'Fix',
+  finish: 'Done',
+};
+
 export function App() {
   const [activeLessonId, setActiveLessonId] = useState(LESSONS[0].id);
   const activeLessonIndex = LESSONS.findIndex((lesson) => lesson.id === activeLessonId);
@@ -87,6 +96,12 @@ export function App() {
           <p className="eyebrow">Python for Kids</p>
           <h1>{activeLesson.title}</h1>
           <p className="app-subtitle">Write tiny code. Run it. Watch Python's story.</p>
+          <div className="adventure-trail" aria-label="Mission path">
+            <span>Pick</span>
+            <span>Code</span>
+            <span>Run</span>
+            <span>Learn</span>
+          </div>
         </div>
         <button type="button" onClick={resetMission}>
           Reset Code
@@ -95,7 +110,7 @@ export function App() {
 
       <section className="workspace-grid" aria-label="Python mission workspace">
         <section className="mission-card" aria-labelledby="mission-title">
-          <span>Mission</span>
+          <span className="section-kicker">Mission</span>
           <label className="mission-picker">
             <strong>Choose a mission</strong>
             <select value={activeLesson.id} onChange={(event) => loadLesson(event.target.value)}>
@@ -112,6 +127,11 @@ export function App() {
             <span>{activeLesson.difficulty}</span>
             <span>{activeLesson.topic}</span>
             <span>Ages {activeLesson.age_range}</span>
+          </div>
+          <div className="mission-badge-strip" aria-label="Mission rewards">
+            {activeLesson.required_concepts.map((concept) => (
+              <span key={concept}>{conceptLabel(concept)}</span>
+            ))}
           </div>
           <ul>
             {activeLesson.learning_goals.map((goal) => (
@@ -210,13 +230,25 @@ export function App() {
                   role="button"
                   tabIndex={0}
                 >
-                  <span>Story Step {index + 1}</span>
-                  <strong>{card.title}</strong>
-                  <p>{card.detail}</p>
-                  {card.lineNumber && <em>Code line {card.lineNumber}</em>}
+                  <div className="story-step-shell">
+                    <span className={`story-icon story-icon--${card.kind}`}>{STORY_BADGES[card.kind]}</span>
+                    <div>
+                      <span>Story Step {index + 1}</span>
+                      <strong>{card.title}</strong>
+                      <p>{card.detail}</p>
+                      {card.lineNumber && <em>Code line {card.lineNumber}</em>}
+                    </div>
+                  </div>
                 </li>
               ))}
             </ol>
+          )}
+          {validationResult.status === 'complete' && (
+            <div className="celebration-banner" role="status" aria-live="polite">
+              <span>Mission unlocked</span>
+              <strong>You earned today&apos;s coding badge.</strong>
+              <p>Nice work. You made Python follow the mission from code to output.</p>
+            </div>
           )}
           {validationResult.status === 'complete' && nextLesson && (
             <button type="button" onClick={() => loadLesson(nextLesson.id)}>
@@ -224,7 +256,13 @@ export function App() {
             </button>
           )}
           <div className="helper-card" aria-label="Mission helper">
-            <span>Helper</span>
+            <div className="helper-heading">
+              <span className="buddy-face" aria-hidden="true">Hi</span>
+              <div>
+                <span>Code Buddy</span>
+                <p>Small clues, no full answers.</p>
+              </div>
+            </div>
             <div className="helper-actions">
               <button type="button" onClick={() => setHelperResponse(explainStoryStep(selectedStoryCard))}>
                 Explain Step
@@ -273,7 +311,7 @@ export function App() {
               </dl>
             )}
             <div className="concept-badges" aria-label="Mission skill badges">
-              <span>Skill badges</span>
+              <span>Badge Room</span>
               <ul>
                 {validationResult.concepts.required.map((concept) => {
                   const isFound = validationResult.concepts.found.includes(concept);
