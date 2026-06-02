@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { runCode } from './api';
+import { explainStoryStep, giveMissionHint, type HelperResponse } from './helper';
 import { LESSONS } from './lessons';
 import { buildStoryCards } from './story';
 import { conceptLabel, validateMission } from './validation';
@@ -15,7 +16,10 @@ export function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
+  const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
+  const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
+  const selectedStoryCard = storyCards.find((card) => card.id === selectedStoryCardId) ?? null;
   const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
 
@@ -27,6 +31,8 @@ export function App() {
     setRunResult(null);
     setRunError(null);
     setHighlightedLine(null);
+    setSelectedStoryCardId(null);
+    setHelperResponse(null);
   }
 
   function resetMission() {
@@ -34,12 +40,16 @@ export function App() {
     setRunResult(null);
     setRunError(null);
     setHighlightedLine(null);
+    setSelectedStoryCardId(null);
+    setHelperResponse(null);
   }
 
   async function handleRunMission() {
     setIsRunning(true);
     setRunError(null);
     setHighlightedLine(null);
+    setSelectedStoryCardId(null);
+    setHelperResponse(null);
 
     try {
       const result = await runCode(code);
@@ -135,7 +145,14 @@ export function App() {
                     card.lineNumber !== null && highlightedLine === card.lineNumber ? 'is-selected' : ''
                   }`}
                   onBlur={() => setHighlightedLine(null)}
-                  onFocus={() => setHighlightedLine(card.lineNumber)}
+                  onClick={() => {
+                    setHighlightedLine(card.lineNumber);
+                    setSelectedStoryCardId(card.id);
+                  }}
+                  onFocus={() => {
+                    setHighlightedLine(card.lineNumber);
+                    setSelectedStoryCardId(card.id);
+                  }}
                   onMouseEnter={() => setHighlightedLine(card.lineNumber)}
                   onMouseLeave={() => setHighlightedLine(null)}
                   tabIndex={0}
@@ -153,6 +170,25 @@ export function App() {
               Next Mission: {nextLesson.title}
             </button>
           )}
+          <div className="helper-card" aria-label="Mission helper">
+            <span>Helper</span>
+            <div className="helper-actions">
+              <button type="button" onClick={() => setHelperResponse(explainStoryStep(selectedStoryCard))}>
+                Explain Step
+              </button>
+              <button type="button" onClick={() => setHelperResponse(giveMissionHint(activeLesson, validationResult))}>
+                Hint Please
+              </button>
+            </div>
+            {helperResponse ? (
+              <div className="helper-response">
+                <strong>{helperResponse.title}</strong>
+                <p>{helperResponse.message}</p>
+              </div>
+            ) : (
+              <p className="empty-message">Need help? Try a hint or pick a story step.</p>
+            )}
+          </div>
         </section>
 
         <section className="output-card" aria-labelledby="output-title">

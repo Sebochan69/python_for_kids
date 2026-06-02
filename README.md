@@ -112,5 +112,5 @@ The run response includes kid-facing runtime events. See
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
 skeleton. The backend can run one small Python snippet with prototype guardrails.
-Runtime story cards, the mission picker, expected-output validation, and simple
-skill badges are implemented.
+Runtime story cards, the mission picker, expected-output validation, simple
+skill badges, and local helper hints are implemented.

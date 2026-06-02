@@ -34,4 +34,5 @@ The frontend mission picker loads these lessons, injects `starter_code` into the
 editor, supports reset, and can move to the next mission after a successful run.
 The app compares runtime stdout against `expected_stdout` and shows gentle
 mission feedback. It also uses simple local concept detection to show skill
-badges for required concepts.
+badges for required concepts. Lesson `hints` are used by the local helper; this
+is deterministic guidance, not an AI chat.

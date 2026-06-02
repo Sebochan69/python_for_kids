@@ -29,6 +29,9 @@ designed. It should:
 
 Hints should guide the next thought, not write the answer.
 
+The current helper is local and deterministic. It does not call an AI model and
+does not provide an open-ended chat box.
+
 Good:
 
 - "Check what Python is saying. Does it match the mission?"
