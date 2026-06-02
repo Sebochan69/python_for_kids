@@ -67,7 +67,7 @@ shared/     # shared schemas when needed
 ```bash
 cd frontend
 npm install
-npm run dev
+VITE_API_BASE_URL=http://127.0.0.1:8001 npm run dev
 ```
 
 Open the Vite URL shown in the terminal.
