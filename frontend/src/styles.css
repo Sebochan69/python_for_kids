@@ -32,9 +32,36 @@ button {
   padding: 0 16px;
 }
 
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.story-step:focus-visible,
+.skip-link:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
 button:disabled {
   background: #94a3b8;
   cursor: wait;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 10;
+  transform: translateY(-140%);
+  border-radius: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  font-weight: 900;
+  padding: 10px 14px;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 .app-shell {
@@ -172,11 +199,6 @@ h2 {
   padding: 0 12px;
 }
 
-.mission-picker select:focus-visible {
-  outline: 3px solid #7dd3fc;
-  outline-offset: 2px;
-}
-
 .code-card {
   min-height: 430px;
   display: grid;
@@ -202,6 +224,12 @@ h2 {
   padding: 9px 11px;
 }
 
+.code-help {
+  color: #486581;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 textarea {
   width: 100%;
   min-height: 0;
@@ -214,11 +242,6 @@ textarea {
   font-size: 1rem;
   line-height: 1.6;
   padding: 16px;
-}
-
-textarea:focus-visible {
-  outline: 3px solid #7dd3fc;
-  outline-offset: 2px;
 }
 
 .code-map {
@@ -301,11 +324,6 @@ textarea:focus-visible {
   background: #f8fafc;
   list-style: none;
   padding: 12px;
-}
-
-.story-step:focus-visible {
-  outline: 3px solid #7dd3fc;
-  outline-offset: 2px;
 }
 
 .story-step.is-selected {
@@ -551,5 +569,19 @@ pre {
 
   .helper-actions {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (forced-colors: active) {
+  .mission-card,
+  .code-card,
+  .story-card,
+  .output-card,
+  .validation-card,
+  .helper-card,
+  .story-step,
+  .code-map {
+    border: 1px solid CanvasText;
+    box-shadow: none;
   }
 }

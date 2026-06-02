@@ -13,6 +13,8 @@ requirements, not extras.
 - No automatic full-solution generation.
 - No filesystem persistence from learner code.
 - No network access from learner code.
+- No open-ended AI chat.
+- No external links in the child-facing app.
 
 ## Runtime Safety
 
@@ -43,3 +45,8 @@ Avoid:
 - shame
 - personal questions
 - unrelated links
+
+## Accessibility Safety
+
+Accessibility is part of child safety. The app should keep controls keyboard
+reachable, keep focus visible, use plain language, and avoid color-only meaning.

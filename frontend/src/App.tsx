@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 import { runCode } from './api';
 import { explainStoryStep, giveMissionHint, type HelperResponse } from './helper';
 import { LESSONS } from './lessons';
-import { buildStoryCards } from './story';
+import { buildStoryCards, type StoryCard } from './story';
 import { conceptLabel, validateMission } from './validation';
 import type { RunCodeResponse } from './types';
 
@@ -44,6 +44,18 @@ export function App() {
     setHelperResponse(null);
   }
 
+  function selectStoryCard(card: StoryCard) {
+    setHighlightedLine(card.lineNumber);
+    setSelectedStoryCardId(card.id);
+  }
+
+  function handleStoryCardKeyDown(event: KeyboardEvent<HTMLLIElement>, card: StoryCard) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      selectStoryCard(card);
+    }
+  }
+
   async function handleRunMission() {
     setIsRunning(true);
     setRunError(null);
@@ -64,6 +76,9 @@ export function App() {
 
   return (
     <main className="app-shell">
+      <a className="skip-link" href="#code-title">
+        Skip to code
+      </a>
       <header className="top-bar">
         <div>
           <p className="eyebrow">Python for Kids</p>
@@ -109,9 +124,17 @@ export function App() {
               {isRunning ? 'Running...' : 'Run Mission'}
             </button>
           </div>
-          {isRunning && <p className="run-status">Python is trying the mission now...</p>}
+          <p id="code-help" className="code-help">
+            Change the code, then run the mission to see what Python does.
+          </p>
+          {isRunning && (
+            <p className="run-status" role="status" aria-live="polite">
+              Python is trying the mission now...
+            </p>
+          )}
           <textarea
             aria-label="Python code"
+            aria-describedby="code-help"
             spellCheck={false}
             value={code}
             onChange={(event) => {
@@ -139,30 +162,39 @@ export function App() {
 
         <section className="story-card" aria-labelledby="story-title">
           <h2 id="story-title">What Python Did</h2>
-          {runError && <p className="error-message">{runError}</p>}
-          {isRunning && <p className="empty-message">Python is making the story steps...</p>}
+          {runError && (
+            <p className="error-message" role="alert">
+              {runError}
+            </p>
+          )}
+          {isRunning && (
+            <p className="empty-message" role="status" aria-live="polite">
+              Python is making the story steps...
+            </p>
+          )}
           {!runResult && !runError && !isRunning && (
             <p className="empty-message">Press Run Mission to see Python's story.</p>
           )}
           {runResult && (
-            <ol className="story-list">
+            <ol className="story-list" aria-live="polite">
               {storyCards.map((card, index) => (
                 <li
                   key={card.id}
                   className={`story-step story-step--${card.kind} ${
                     card.lineNumber !== null && highlightedLine === card.lineNumber ? 'is-selected' : ''
                   }`}
+                  aria-label={`${card.title}. ${card.detail}`}
+                  aria-selected={selectedStoryCardId === card.id}
                   onBlur={() => setHighlightedLine(null)}
-                  onClick={() => {
-                    setHighlightedLine(card.lineNumber);
-                    setSelectedStoryCardId(card.id);
-                  }}
+                  onClick={() => selectStoryCard(card)}
                   onFocus={() => {
                     setHighlightedLine(card.lineNumber);
                     setSelectedStoryCardId(card.id);
                   }}
+                  onKeyDown={(event) => handleStoryCardKeyDown(event, card)}
                   onMouseEnter={() => setHighlightedLine(card.lineNumber)}
                   onMouseLeave={() => setHighlightedLine(null)}
+                  role="button"
                   tabIndex={0}
                 >
                   <span>Story Step {index + 1}</span>
@@ -189,7 +221,7 @@ export function App() {
               </button>
             </div>
             {helperResponse ? (
-              <div className="helper-response">
+              <div className="helper-response" aria-live="polite">
                 <strong>{helperResponse.title}</strong>
                 <p>{helperResponse.message}</p>
               </div>
@@ -201,9 +233,17 @@ export function App() {
 
         <section className="output-card" aria-labelledby="output-title">
           <h2 id="output-title">Python Says</h2>
-          <pre>{isRunning ? 'Python is thinking...' : runResult?.stdout || '(nothing yet)'}</pre>
-          {runResult?.stderr && <p className="error-message">{runResult.stderr}</p>}
-          <div className={`validation-card validation-card--${validationResult.status}`}>
+          <pre aria-live="polite">{isRunning ? 'Python is thinking...' : runResult?.stdout || '(nothing yet)'}</pre>
+          {runResult?.stderr && (
+            <p className="error-message" role="alert">
+              {runResult.stderr}
+            </p>
+          )}
+          <div
+            className={`validation-card validation-card--${validationResult.status}`}
+            role="status"
+            aria-live="polite"
+          >
             <span>Mission Check</span>
             <strong>{validationResult.title}</strong>
             <p>{validationResult.message}</p>

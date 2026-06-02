@@ -108,6 +108,11 @@ curl -X POST http://127.0.0.1:8001/api/v1/run \
 The run response includes kid-facing runtime events. See
 [Runtime Events](docs/runtime-events.md).
 
+Safety and accessibility notes:
+
+- [Safety Notes](docs/safety.md)
+- [Accessibility Notes](docs/accessibility.md)
+
 ## Current Status
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
