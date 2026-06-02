@@ -62,6 +62,9 @@ docs/       # product, safety, demo, and architecture notes
 shared/     # shared schemas when needed
 ```
 
+The first lesson pack is in [lessons](lessons), and the lesson contract is in
+[lesson.schema.json](shared/schemas/lesson.schema.json).
+
 ## Run Frontend
 
 ```bash
@@ -109,4 +112,5 @@ The run response includes kid-facing runtime events. See
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
 skeleton. The backend can run one small Python snippet with prototype guardrails.
-Runtime story cards and lesson features have not been implemented yet.
+Runtime story cards are implemented. Lesson files exist, but the mission picker
+and lesson validation have not been wired yet.

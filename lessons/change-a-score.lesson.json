@@ -1,0 +1,22 @@
+{
+  "id": "change-a-score",
+  "title": "Change a Score",
+  "summary": "Change a number in a memory box.",
+  "difficulty": "starter",
+  "topic": "variable updates",
+  "age_range": "8-10",
+  "mission_prompt": "Start a score at 1, add 1, then make Python say the new score.",
+  "starter_code": "score = 1\nscore = score + 1\nprint(score)",
+  "expected_stdout": "2\n",
+  "required_concepts": ["variable_assignment", "variable_update", "print_statement"],
+  "learning_goals": [
+    "Create a number memory box.",
+    "Change the value in the memory box.",
+    "Print the changed value."
+  ],
+  "hints": [
+    "score = score + 1 means use the old score to make a new score.",
+    "The print line should happen after the score changes."
+  ],
+  "adult_guidance": "Ask the child to point at the line where the score changes."
+}

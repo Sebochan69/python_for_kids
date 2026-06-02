@@ -1,0 +1,22 @@
+{
+  "id": "choose-a-game",
+  "title": "Choose a Game",
+  "summary": "Use a question to choose what Python says.",
+  "difficulty": "easy",
+  "topic": "conditions",
+  "age_range": "8-10",
+  "mission_prompt": "Ask a yes-or-no question, then make Python say the game is ready.",
+  "starter_code": "game_ready = True\nif game_ready:\n    print(\"Game time!\")",
+  "expected_stdout": "Game time!\n",
+  "required_concepts": ["variable_assignment", "if_statement", "print_statement"],
+  "learning_goals": [
+    "Use True as a yes value.",
+    "Use if as a question.",
+    "Run code only when the question is yes."
+  ],
+  "hints": [
+    "if checks whether something is True.",
+    "The print line should be indented under the if."
+  ],
+  "adult_guidance": "Use question language first, then name it as an if statement."
+}

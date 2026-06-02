@@ -1,0 +1,21 @@
+{
+  "id": "say-hello",
+  "title": "Say Hello",
+  "summary": "Make Python say hello.",
+  "difficulty": "starter",
+  "topic": "print",
+  "age_range": "8-10",
+  "mission_prompt": "Make Python say hello to the screen.",
+  "starter_code": "print(\"Hello, Python!\")",
+  "expected_stdout": "Hello, Python!\n",
+  "required_concepts": ["print_statement"],
+  "learning_goals": [
+    "Use print() to make Python say something.",
+    "Run a tiny Python mission."
+  ],
+  "hints": [
+    "print() is how Python says words.",
+    "Keep the words inside quotes."
+  ],
+  "adult_guidance": "Ask the child what they think Python will say before running the mission."
+}

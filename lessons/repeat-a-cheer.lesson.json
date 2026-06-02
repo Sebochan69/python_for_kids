@@ -1,0 +1,21 @@
+{
+  "id": "repeat-a-cheer",
+  "title": "Repeat a Cheer",
+  "summary": "Use a repeater to say the same cheer three times.",
+  "difficulty": "easy",
+  "topic": "loops",
+  "age_range": "8-10",
+  "mission_prompt": "Make Python say Go! three times.",
+  "starter_code": "for turn in range(3):\n    print(\"Go!\")",
+  "expected_stdout": "Go!\nGo!\nGo!\n",
+  "required_concepts": ["for_loop", "print_statement"],
+  "learning_goals": [
+    "Use a for loop as a repeater.",
+    "Print something more than once."
+  ],
+  "hints": [
+    "range(3) gives the repeater three turns.",
+    "The print line belongs inside the repeater."
+  ],
+  "adult_guidance": "Count the printed lines together after the mission runs."
+}

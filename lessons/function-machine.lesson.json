@@ -1,0 +1,23 @@
+{
+  "id": "function-machine",
+  "title": "Function Machine",
+  "summary": "Make a small machine that doubles a number.",
+  "difficulty": "easy",
+  "topic": "functions",
+  "age_range": "8-10",
+  "mission_prompt": "Build a double machine, use it, and make Python say the answer.",
+  "starter_code": "def double(number):\n    return number * 2\n\nanswer = double(4)\nprint(answer)",
+  "expected_stdout": "8\n",
+  "required_concepts": ["function_definition", "function_call", "variable_assignment", "print_statement"],
+  "learning_goals": [
+    "Define a function as a machine.",
+    "Call the function machine with an input.",
+    "Print the machine's answer."
+  ],
+  "hints": [
+    "def starts the machine.",
+    "return gives back the machine's answer.",
+    "double(4) uses the machine."
+  ],
+  "adult_guidance": "Describe the function as input goes in, answer comes out."
+}

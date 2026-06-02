@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/python-for-kids/lesson.schema.json",
+  "title": "Python for Kids Lesson",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "summary",
+    "difficulty",
+    "topic",
+    "age_range",
+    "starter_code",
+    "expected_stdout",
+    "required_concepts",
+    "learning_goals",
+    "hints"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["starter", "easy"]
+    },
+    "topic": {
+      "type": "string"
+    },
+    "age_range": {
+      "type": "string"
+    },
+    "mission_prompt": {
+      "type": "string"
+    },
+    "starter_code": {
+      "type": "string"
+    },
+    "expected_stdout": {
+      "type": "string"
+    },
+    "required_concepts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "print_statement",
+          "variable_assignment",
+          "variable_update",
+          "for_loop",
+          "if_statement",
+          "function_definition",
+          "function_call"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "learning_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "hints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "adult_guidance": {
+      "type": "string"
+    }
+  }
+}

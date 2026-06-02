@@ -1,0 +1,21 @@
+{
+  "id": "remember-a-name",
+  "title": "Remember a Name",
+  "summary": "Use a memory box to remember a name.",
+  "difficulty": "starter",
+  "topic": "variables",
+  "age_range": "8-10",
+  "mission_prompt": "Put a name in a memory box, then make Python say it.",
+  "starter_code": "name = \"Mika\"\nprint(name)",
+  "expected_stdout": "Mika\n",
+  "required_concepts": ["variable_assignment", "print_statement"],
+  "learning_goals": [
+    "Use a variable as a memory box.",
+    "Print what the memory box holds."
+  ],
+  "hints": [
+    "A memory box has a name on the left side.",
+    "print(name) says what is inside the name box."
+  ],
+  "adult_guidance": "Use the phrase memory box before introducing the word variable."
+}
