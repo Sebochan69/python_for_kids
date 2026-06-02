@@ -113,6 +113,11 @@ Safety and accessibility notes:
 - [Safety Notes](docs/safety.md)
 - [Accessibility Notes](docs/accessibility.md)
 
+Testing and demo:
+
+- [Smoke Test](docs/smoke-test.md)
+- [Demo Flow](docs/demo-flow.md)
+
 ## Current Status
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
