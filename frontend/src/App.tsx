@@ -93,9 +93,9 @@ export function App() {
       </a>
       <header className="top-bar">
         <div>
-          <p className="eyebrow">Python for Kids</p>
-          <h1>{activeLesson.title}</h1>
-          <p className="app-subtitle">Write tiny code. Run a quest. Watch Python's story.</p>
+          <p className="eyebrow">Classroom Coding Lab</p>
+          <h1>Python for Kids</h1>
+          <p className="app-subtitle">A playful coding lab for classroom Python foundations.</p>
           <div className="adventure-trail" aria-label="Mission path">
             <span>Pick</span>
             <span>Code</span>
