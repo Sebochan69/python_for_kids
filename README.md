@@ -117,6 +117,16 @@ Testing and demo:
 
 - [Smoke Test](docs/smoke-test.md)
 - [Demo Flow](docs/demo-flow.md)
+- [V1 Release Notes](docs/release-notes-v1.md)
+
+## V1 Release Checklist
+
+- Frontend build passes with `npm run build`.
+- Backend imports cleanly and exposes `/health`.
+- The demo mission flow runs from lesson load through mission validation.
+- Runtime story cards stay synced with the Code Map.
+- Local helper hints and explanations work without external AI services.
+- Known limitations are documented in the release notes.
 
 ## Current Status
 
