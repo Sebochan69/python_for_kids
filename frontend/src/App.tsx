@@ -235,22 +235,6 @@ export function App() {
               onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
             />
           </div>
-          <div className="code-map" aria-label="Code line map">
-            <span>Line Map</span>
-            <ol>
-              {codeLines.map((line, index) => {
-                const lineNumber = index + 1;
-                const isHighlighted = highlightedLine === lineNumber;
-
-                return (
-                  <li key={`${lineNumber}-${line}`} className={isHighlighted ? 'is-highlighted' : ''}>
-                    <em>{lineNumber}</em>
-                    <code>{line || ' '}</code>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
         </section>
 
         <section className="story-card" aria-labelledby="story-title">
@@ -260,11 +244,12 @@ export function App() {
               <>
                 <span>Looking at Step {selectedStoryCardIndex + 1}</span>
                 <strong>{selectedStoryCard.title}</strong>
+                {selectedStoryCard.lineNumber && <em>This step uses code line {selectedStoryCard.lineNumber}.</em>}
               </>
             ) : (
               <>
                 <span>Pick a step</span>
-                <strong>Hover, tap, or focus a story step to connect it to the code.</strong>
+                <strong>Hover, tap, or focus a story step to see its code line.</strong>
               </>
             )}
           </div>
