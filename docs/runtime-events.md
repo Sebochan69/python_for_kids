@@ -61,6 +61,10 @@ Expected story-level events:
 7. Python says `2`.
 8. Python stops the mission.
 
+The frontend may hide plain `line_executed` events in the child-facing story
+view so children focus on the visible changes: memory boxes, changed values,
+printed output, errors, and mission start/finish.
+
 ## Current Boundaries
 
 - Imports are blocked.

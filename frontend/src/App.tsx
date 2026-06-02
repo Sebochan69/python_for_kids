@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { runCode } from './api';
+import { buildStoryCards } from './story';
 import type { RunCodeResponse } from './types';
 
 const STARTER_CODE = 'x = 1\nx = x + 1\nprint(x)';
@@ -9,6 +10,7 @@ export function App() {
   const [runResult, setRunResult] = useState<RunCodeResponse | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
+  const storyCards = runResult ? buildStoryCards(runResult.events) : [];
 
   async function handleRunMission() {
     setIsRunning(true);
@@ -69,12 +71,13 @@ export function App() {
             <p className="empty-message">Press Run Mission to see Python's story.</p>
           )}
           {runResult && (
-            <ol className="event-list">
-              {runResult.events.map((event) => (
-                <li key={event.id}>
-                  <span>Step {event.step + 1}</span>
-                  <strong>{event.message}</strong>
-                  {event.line_number && <em>Line {event.line_number}</em>}
+            <ol className="story-list">
+              {storyCards.map((card, index) => (
+                <li key={card.id} className={`story-step story-step--${card.kind}`}>
+                  <span>Story Step {index + 1}</span>
+                  <strong>{card.title}</strong>
+                  <p>{card.detail}</p>
+                  {card.lineNumber && <em>Code line {card.lineNumber}</em>}
                 </li>
               ))}
             </ol>

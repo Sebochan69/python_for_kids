@@ -158,25 +158,48 @@ textarea:focus-visible {
   gap: 12px;
 }
 
-.event-list {
+.story-list {
   display: grid;
   gap: 10px;
   margin: 0;
   padding: 0;
 }
 
-.event-list li {
+.story-step {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   border: 1px solid #dbeafe;
+  border-left: 8px solid #38bdf8;
   border-radius: 12px;
   background: #f8fafc;
   list-style: none;
   padding: 12px;
 }
 
-.event-list span,
-.event-list em {
+.story-step--memory {
+  border-left-color: #14b8a6;
+}
+
+.story-step--change {
+  border-left-color: #f59e0b;
+}
+
+.story-step--say {
+  border-left-color: #8b5cf6;
+}
+
+.story-step--error {
+  border-color: #fecdd3;
+  border-left-color: #e11d48;
+  background: #fff1f2;
+}
+
+.story-step--finish {
+  border-left-color: #22c55e;
+}
+
+.story-step span,
+.story-step em {
   color: #64748b;
   font-size: 0.75rem;
   font-style: normal;
@@ -184,10 +207,15 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
-.event-list strong {
+.story-step strong {
   color: #17324d;
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.35;
+}
+
+.story-step p {
+  color: #486581;
+  line-height: 1.45;
 }
 
 pre {
