@@ -52,17 +52,49 @@ The first app should include:
 - Prefer encouragement and curiosity over scoring pressure.
 - Add parent/teacher controls before accounts, sharing, or persistence.
 
-## Planned Structure
+## Project Structure
 
 ```text
-frontend/   # kid-friendly React app, future ticket
-backend/    # controlled Python execution API, future ticket
+frontend/   # kid-friendly React app
+backend/    # FastAPI backend
 lessons/    # mission definitions
 docs/       # product, safety, demo, and architecture notes
 shared/     # shared schemas when needed
 ```
 
+## Run Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open the Vite URL shown in the terminal.
+
+## Run Backend
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/Scripts/activate
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8001
+```
+
+In PowerShell, activate with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Health check:
+
+```bash
+curl http://127.0.0.1:8001/health
+```
+
 ## Current Status
 
-This repository is at project foundation stage. No frontend or backend code has
-been scaffolded yet.
+This repository has project foundation docs plus a minimal Vite/FastAPI
+skeleton. Python execution and lesson features have not been implemented yet.
