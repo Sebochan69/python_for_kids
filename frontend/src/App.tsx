@@ -16,6 +16,7 @@ export function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
+  const [codeScrollTop, setCodeScrollTop] = useState(0);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
@@ -31,6 +32,7 @@ export function App() {
     setRunResult(null);
     setRunError(null);
     setHighlightedLine(null);
+    setCodeScrollTop(0);
     setSelectedStoryCardId(null);
     setHelperResponse(null);
   }
@@ -40,6 +42,7 @@ export function App() {
     setRunResult(null);
     setRunError(null);
     setHighlightedLine(null);
+    setCodeScrollTop(0);
     setSelectedStoryCardId(null);
     setHelperResponse(null);
   }
@@ -132,16 +135,26 @@ export function App() {
               Python is trying the mission now...
             </p>
           )}
-          <textarea
-            aria-label="Python code"
-            aria-describedby="code-help"
-            spellCheck={false}
-            value={code}
-            onChange={(event) => {
-              setCode(event.target.value);
-              setHighlightedLine(null);
-            }}
-          />
+          <div className="editor-frame">
+            <div className="editor-line-numbers" aria-hidden="true">
+              <ol style={{ transform: `translateY(-${codeScrollTop}px)` }}>
+                {codeLines.map((_, index) => (
+                  <li key={index + 1}>{index + 1}</li>
+                ))}
+              </ol>
+            </div>
+            <textarea
+              aria-label="Python code"
+              aria-describedby="code-help"
+              spellCheck={false}
+              value={code}
+              onChange={(event) => {
+                setCode(event.target.value);
+                setHighlightedLine(null);
+              }}
+              onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
+            />
+          </div>
           <div className="code-map" aria-label="Code line map">
             <span>Code Map</span>
             <ol>

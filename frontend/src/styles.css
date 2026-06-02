@@ -230,13 +230,46 @@ h2 {
   line-height: 1.45;
 }
 
-textarea {
-  width: 100%;
+.editor-frame {
   flex: 1 1 280px;
   min-height: 280px;
-  resize: none;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  overflow: hidden;
   border: 1px solid #cbd5e1;
   border-radius: 12px;
+  background: #0f172a;
+}
+
+.editor-line-numbers {
+  overflow: hidden;
+  border-right: 1px solid #334155;
+  background: #111827;
+  color: #94a3b8;
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 16px 10px 16px 0;
+  text-align: right;
+  user-select: none;
+}
+
+.editor-line-numbers ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-line-numbers li {
+  height: 1.6em;
+  list-style: none;
+}
+
+textarea {
+  width: 100%;
+  min-height: 0;
+  resize: none;
+  border: 0;
   background: #0f172a;
   color: #d1fae5;
   font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
