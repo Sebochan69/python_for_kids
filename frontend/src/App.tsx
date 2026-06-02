@@ -172,16 +172,10 @@ export function App() {
       <section className="workspace-grid" aria-label="Python mission workspace">
         <section className="mission-card" aria-labelledby="mission-title">
           <span className="section-kicker">Quest</span>
-          <label className="mission-picker">
-            <strong>Choose a quest</strong>
-            <select value={activeLesson.id} onChange={(event) => loadLesson(event.target.value)}>
-              {LESSONS.map((lesson) => (
-                <option key={lesson.id} value={lesson.id}>
-                  {lesson.title}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="current-quest">
+            <span>Current quest</span>
+            <strong>{activeLesson.title}</strong>
+          </div>
           <h2 id="mission-title">{activeLesson.mission_prompt}</h2>
           <div className="goal-box" aria-label="Quest goal">
             <span>Your Goal</span>
