@@ -225,7 +225,7 @@ export function App() {
                     setSelectedStoryCardId(card.id);
                   }}
                   onKeyDown={(event) => handleStoryCardKeyDown(event, card)}
-                  onMouseEnter={() => setHighlightedLine(card.lineNumber)}
+                  onMouseEnter={() => selectStoryCard(card)}
                   onMouseLeave={() => setHighlightedLine(null)}
                   role="button"
                   tabIndex={0}

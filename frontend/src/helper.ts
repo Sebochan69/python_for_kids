@@ -58,7 +58,7 @@ export function giveMissionHint(
   if (validationResult.status === 'complete') {
     return {
       title: 'Nice work',
-      message: 'You completed this mission. Try the next one when you are ready.',
+      message: 'You completed this quest. Try the next one when you are ready.',
     };
   }
 
@@ -67,7 +67,7 @@ export function giveMissionHint(
 
     return {
       title: `Try ${conceptLabel(missingConcept)}`,
-      message: `This mission wants you to practice ${conceptLabel(missingConcept)}. Look at the mission goal and try adding that idea.`,
+      message: `This quest wants you to practice ${conceptLabel(missingConcept)}. Look at the quest goal and try adding that idea.`,
     };
   }
 
