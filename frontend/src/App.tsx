@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { runCode } from './api';
 import { LESSONS } from './lessons';
 import { buildStoryCards } from './story';
-import { validateMission } from './validation';
+import { conceptLabel, validateMission } from './validation';
 import type { RunCodeResponse } from './types';
 
 export function App() {
@@ -16,7 +16,7 @@ export function App() {
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
-  const validationResult = validateMission(activeLesson, runResult);
+  const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
 
   function loadLesson(lessonId: string) {
@@ -175,6 +175,20 @@ export function App() {
                 </div>
               </dl>
             )}
+            <div className="concept-badges" aria-label="Mission skill badges">
+              <span>Skill badges</span>
+              <ul>
+                {validationResult.concepts.required.map((concept) => {
+                  const isFound = validationResult.concepts.found.includes(concept);
+
+                  return (
+                    <li key={concept} className={isFound ? 'is-earned' : 'is-waiting'}>
+                      {conceptLabel(concept)}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </section>
       </section>

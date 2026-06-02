@@ -55,4 +55,9 @@ export type MissionValidationResult = {
   message: string;
   expectedOutput: string;
   actualOutput: string;
+  concepts: {
+    required: string[];
+    found: string[];
+    missing: string[];
+  };
 };
