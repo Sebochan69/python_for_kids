@@ -26,12 +26,41 @@ export function App() {
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const [codeScrollTop, setCodeScrollTop] = useState(0);
+  const [completedQuestIds, setCompletedQuestIds] = useState<string[]>([]);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
   const selectedStoryCard = storyCards.find((card) => card.id === selectedStoryCardId) ?? null;
+  const selectedStoryCardIndex = selectedStoryCard
+    ? storyCards.findIndex((card) => card.id === selectedStoryCard.id)
+    : -1;
   const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
+  const activeQuestNumber = activeLessonIndex + 1;
+  const earnedBadgeText = validationResult.concepts.found.map(conceptLabel).join(', ') || 'Quest Badge';
+  const tryNextMessage = (() => {
+    if (validationResult.status === 'not_run') {
+      return 'Start by reading the goal, then press Run Quest.';
+    }
+
+    if (validationResult.status === 'complete') {
+      return nextLesson ? 'Try the next quest when you are ready.' : 'You cleared every quest in this pack.';
+    }
+
+    if (runResult?.status === 'error') {
+      return 'Pick the Fix step in the Adventure Log and check the matching code line.';
+    }
+
+    if (validationResult.concepts.missing.length > 0) {
+      return `Try adding ${conceptLabel(validationResult.concepts.missing[0])}.`;
+    }
+
+    if (validationResult.actualOutput.trim().length > 0) {
+      return 'Compare Python said with the Goal, then change one small thing.';
+    }
+
+    return 'Run the starter code first, then change one small thing.';
+  })();
 
   function loadLesson(lessonId: string) {
     const lesson = LESSONS.find((candidate) => candidate.id === lessonId) ?? LESSONS[0];
@@ -77,7 +106,15 @@ export function App() {
 
     try {
       const result = await runCode(code);
+      const nextValidationResult = validateMission(activeLesson, result, code);
+
       setRunResult(result);
+
+      if (nextValidationResult.status === 'complete') {
+        setCompletedQuestIds((currentIds) => (
+          currentIds.includes(activeLesson.id) ? currentIds : [...currentIds, activeLesson.id]
+        ));
+      }
     } catch (error) {
       setRunResult(null);
       setRunError(error instanceof Error ? error.message : 'Python did not answer.');
@@ -102,6 +139,30 @@ export function App() {
             <span>Run</span>
             <span>Learn</span>
           </div>
+          <nav className="quest-map" aria-label="Quest map">
+            <span>
+              Quest {activeQuestNumber} of {LESSONS.length}
+            </span>
+            <div>
+              {LESSONS.map((lesson, index) => {
+                const isActive = lesson.id === activeLesson.id;
+                const isComplete = completedQuestIds.includes(lesson.id);
+
+                return (
+                  <button
+                    key={lesson.id}
+                    type="button"
+                    className={`quest-map-button ${isActive ? 'is-active' : ''} ${isComplete ? 'is-complete' : ''}`}
+                    aria-current={isActive ? 'step' : undefined}
+                    aria-label={`Quest ${index + 1}: ${lesson.title}${isComplete ? ', cleared' : ''}`}
+                    onClick={() => loadLesson(lesson.id)}
+                  >
+                    {index + 1}
+                  </button>
+                );
+              })}
+            </div>
+          </nav>
         </div>
         <button type="button" onClick={resetMission}>
           Reset Quest
@@ -122,6 +183,11 @@ export function App() {
             </select>
           </label>
           <h2 id="mission-title">{activeLesson.mission_prompt}</h2>
+          <div className="goal-box" aria-label="Quest goal">
+            <span>Your Goal</span>
+            <strong>Make Python say:</strong>
+            <code>{activeLesson.expected_stdout || '(nothing)'}</code>
+          </div>
           <p>{activeLesson.summary}</p>
           <div className="mission-meta" aria-label="Mission details">
             <span>{activeLesson.difficulty}</span>
@@ -195,6 +261,19 @@ export function App() {
 
         <section className="story-card" aria-labelledby="story-title">
           <h2 id="story-title">Adventure Log</h2>
+          <div className="selected-step-note" aria-live="polite">
+            {selectedStoryCard ? (
+              <>
+                <span>Looking at Step {selectedStoryCardIndex + 1}</span>
+                <strong>{selectedStoryCard.title}</strong>
+              </>
+            ) : (
+              <>
+                <span>Pick a step</span>
+                <strong>Hover, tap, or focus a story step to connect it to the code.</strong>
+              </>
+            )}
+          </div>
           {runError && (
             <p className="error-message" role="alert">
               {runError}
@@ -246,7 +325,7 @@ export function App() {
           {validationResult.status === 'complete' && (
             <div className="celebration-banner" role="status" aria-live="polite">
               <span>Quest cleared</span>
-              <strong>You earned today&apos;s coding badge.</strong>
+              <strong>Badge earned: {earnedBadgeText}</strong>
               <p>Nice work. You made Python follow the quest from code to output.</p>
             </div>
           )}
@@ -298,6 +377,10 @@ export function App() {
             <span>Quest Check</span>
             <strong>{validationResult.title}</strong>
             <p>{validationResult.message}</p>
+            <p className="try-next">
+              <span>Try next</span>
+              {tryNextMessage}
+            </p>
             {runResult && (
               <dl>
                 <div>
