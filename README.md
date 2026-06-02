@@ -94,7 +94,16 @@ Health check:
 curl http://127.0.0.1:8001/health
 ```
 
+Run a tiny Python snippet:
+
+```bash
+curl -X POST http://127.0.0.1:8001/api/v1/run \
+  -H "Content-Type: application/json" \
+  -d '{"code":"print(\"hello\")","file_name":"main.py"}'
+```
+
 ## Current Status
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
-skeleton. Python execution and lesson features have not been implemented yet.
+skeleton. The backend can run one small Python snippet with prototype guardrails.
+Runtime story cards and lesson features have not been implemented yet.
