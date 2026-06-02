@@ -104,7 +104,8 @@ h2 {
   background: #ecfeff;
 }
 
-.mission-card span {
+.mission-card span,
+.mission-picker strong {
   color: #0f766e;
   font-size: 0.75rem;
   font-weight: 900;
@@ -115,6 +116,39 @@ h2 {
 .empty-message {
   color: #486581;
   line-height: 1.55;
+}
+
+.mission-card ul {
+  display: grid;
+  gap: 6px;
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+
+.mission-card li {
+  color: #334155;
+  line-height: 1.4;
+}
+
+.mission-picker {
+  display: grid;
+  gap: 6px;
+}
+
+.mission-picker select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #99f6e4;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #134e4a;
+  font-weight: 900;
+  padding: 0 12px;
+}
+
+.mission-picker select:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 2px;
 }
 
 .code-card {

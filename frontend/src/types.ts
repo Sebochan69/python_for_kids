@@ -30,3 +30,19 @@ export type RunCodeResponse = {
   errors: RunError[];
   timed_out: boolean;
 };
+
+export type Lesson = {
+  id: string;
+  title: string;
+  summary: string;
+  difficulty: 'starter' | 'easy';
+  topic: string;
+  age_range: string;
+  mission_prompt: string;
+  starter_code: string;
+  expected_stdout: string;
+  required_concepts: string[];
+  learning_goals: string[];
+  hints: string[];
+  adult_guidance?: string;
+};

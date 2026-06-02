@@ -1,18 +1,38 @@
 import { useState } from 'react';
 import { runCode } from './api';
+import { LESSONS } from './lessons';
 import { buildStoryCards } from './story';
 import type { RunCodeResponse } from './types';
 
-const STARTER_CODE = 'x = 1\nx = x + 1\nprint(x)';
-
 export function App() {
-  const [code, setCode] = useState(STARTER_CODE);
+  const [activeLessonId, setActiveLessonId] = useState(LESSONS[0].id);
+  const activeLessonIndex = LESSONS.findIndex((lesson) => lesson.id === activeLessonId);
+  const activeLesson = LESSONS[activeLessonIndex] ?? LESSONS[0];
+  const nextLesson = LESSONS[activeLessonIndex + 1];
+  const [code, setCode] = useState(activeLesson.starter_code);
   const [runResult, setRunResult] = useState<RunCodeResponse | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
   const codeLines = code.split('\n');
+
+  function loadLesson(lessonId: string) {
+    const lesson = LESSONS.find((candidate) => candidate.id === lessonId) ?? LESSONS[0];
+
+    setActiveLessonId(lesson.id);
+    setCode(lesson.starter_code);
+    setRunResult(null);
+    setRunError(null);
+    setHighlightedLine(null);
+  }
+
+  function resetMission() {
+    setCode(activeLesson.starter_code);
+    setRunResult(null);
+    setRunError(null);
+    setHighlightedLine(null);
+  }
 
   async function handleRunMission() {
     setIsRunning(true);
@@ -35,9 +55,9 @@ export function App() {
       <header className="top-bar">
         <div>
           <p className="eyebrow">Python for Kids</p>
-          <h1>Tiny Python Mission</h1>
+          <h1>{activeLesson.title}</h1>
         </div>
-        <button type="button" onClick={() => setCode(STARTER_CODE)}>
+        <button type="button" onClick={resetMission}>
           Reset Code
         </button>
       </header>
@@ -45,11 +65,23 @@ export function App() {
       <section className="workspace-grid" aria-label="Python mission workspace">
         <section className="mission-card" aria-labelledby="mission-title">
           <span>Mission</span>
-          <h2 id="mission-title">Make Python count to 2</h2>
-          <p>
-            Run this code and watch Python remember a number, change it, and say
-            the answer.
-          </p>
+          <label className="mission-picker">
+            <strong>Choose a mission</strong>
+            <select value={activeLesson.id} onChange={(event) => loadLesson(event.target.value)}>
+              {LESSONS.map((lesson) => (
+                <option key={lesson.id} value={lesson.id}>
+                  {lesson.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <h2 id="mission-title">{activeLesson.mission_prompt}</h2>
+          <p>{activeLesson.summary}</p>
+          <ul>
+            {activeLesson.learning_goals.map((goal) => (
+              <li key={goal}>{goal}</li>
+            ))}
+          </ul>
         </section>
 
         <section className="code-card" aria-labelledby="code-title">
@@ -113,6 +145,11 @@ export function App() {
                 </li>
               ))}
             </ol>
+          )}
+          {runResult?.status === 'ok' && nextLesson && (
+            <button type="button" onClick={() => loadLesson(nextLesson.id)}>
+              Next Mission: {nextLesson.title}
+            </button>
           )}
         </section>
 

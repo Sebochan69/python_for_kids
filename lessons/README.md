@@ -28,7 +28,8 @@ matches [lesson.schema.json](../shared/schemas/lesson.schema.json).
 - `choose-a-game.lesson.json`
 - `function-machine.lesson.json`
 
-## Current Boundary
+## Current Frontend Behavior
 
-Lesson files exist, but the frontend mission picker has not been wired to them
-yet. That is the next ticket.
+The frontend mission picker loads these lessons, injects `starter_code` into the
+editor, supports reset, and can move to the next mission after a successful run.
+Lesson validation has not been implemented yet.

@@ -112,5 +112,5 @@ The run response includes kid-facing runtime events. See
 
 This repository has project foundation docs plus a minimal Vite/FastAPI
 skeleton. The backend can run one small Python snippet with prototype guardrails.
-Runtime story cards are implemented. Lesson files exist, but the mission picker
-and lesson validation have not been wired yet.
+Runtime story cards and the mission picker are implemented. Lesson validation
+has not been wired yet.
