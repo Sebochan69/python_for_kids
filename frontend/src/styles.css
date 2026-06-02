@@ -201,9 +201,9 @@ h2 {
 
 .code-card {
   min-height: 430px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   grid-row: span 2;
-  grid-template-rows: auto minmax(220px, 1fr) auto;
   gap: 12px;
 }
 
@@ -232,7 +232,8 @@ h2 {
 
 textarea {
   width: 100%;
-  min-height: 0;
+  flex: 1 1 280px;
+  min-height: 280px;
   resize: none;
   border: 1px solid #cbd5e1;
   border-radius: 12px;
