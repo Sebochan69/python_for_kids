@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { runCode } from './api';
 import { LESSONS } from './lessons';
 import { buildStoryCards } from './story';
+import { validateMission } from './validation';
 import type { RunCodeResponse } from './types';
 
 export function App() {
@@ -15,6 +16,7 @@ export function App() {
   const [runError, setRunError] = useState<string | null>(null);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
+  const validationResult = validateMission(activeLesson, runResult);
   const codeLines = code.split('\n');
 
   function loadLesson(lessonId: string) {
@@ -146,7 +148,7 @@ export function App() {
               ))}
             </ol>
           )}
-          {runResult?.status === 'ok' && nextLesson && (
+          {validationResult.status === 'complete' && nextLesson && (
             <button type="button" onClick={() => loadLesson(nextLesson.id)}>
               Next Mission: {nextLesson.title}
             </button>
@@ -157,6 +159,23 @@ export function App() {
           <h2 id="output-title">Python Says</h2>
           <pre>{runResult?.stdout || '(nothing yet)'}</pre>
           {runResult?.stderr && <p className="error-message">{runResult.stderr}</p>}
+          <div className={`validation-card validation-card--${validationResult.status}`}>
+            <span>Mission Check</span>
+            <strong>{validationResult.title}</strong>
+            <p>{validationResult.message}</p>
+            {runResult && (
+              <dl>
+                <div>
+                  <dt>Goal</dt>
+                  <dd>{validationResult.expectedOutput || '(nothing)'}</dd>
+                </div>
+                <div>
+                  <dt>Python said</dt>
+                  <dd>{validationResult.actualOutput || '(nothing)'}</dd>
+                </div>
+              </dl>
+            )}
+          </div>
         </section>
       </section>
     </main>

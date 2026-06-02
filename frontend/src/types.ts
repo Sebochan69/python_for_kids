@@ -46,3 +46,13 @@ export type Lesson = {
   hints: string[];
   adult_guidance?: string;
 };
+
+export type MissionValidationStatus = 'not_run' | 'complete' | 'almost' | 'try_again';
+
+export type MissionValidationResult = {
+  status: MissionValidationStatus;
+  title: string;
+  message: string;
+  expectedOutput: string;
+  actualOutput: string;
+};

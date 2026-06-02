@@ -32,4 +32,5 @@ matches [lesson.schema.json](../shared/schemas/lesson.schema.json).
 
 The frontend mission picker loads these lessons, injects `starter_code` into the
 editor, supports reset, and can move to the next mission after a successful run.
-Lesson validation has not been implemented yet.
+The app compares runtime stdout against `expected_stdout` and shows gentle
+mission feedback. Required-concept validation has not been implemented yet.
