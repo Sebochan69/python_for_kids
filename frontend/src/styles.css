@@ -121,7 +121,7 @@ h2 {
   min-height: 430px;
   display: grid;
   grid-row: span 2;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(220px, 1fr) auto;
   gap: 12px;
 }
 
@@ -151,6 +151,63 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+.code-map {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #ccfbf1;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 10px;
+}
+
+.code-map > span {
+  color: #0f766e;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.code-map ol {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.code-map li {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #334155;
+  list-style: none;
+  padding: 5px 7px;
+}
+
+.code-map li.is-highlighted {
+  border-color: #facc15;
+  background: #fef3c7;
+  box-shadow: inset 4px 0 0 #f59e0b;
+}
+
+.code-map em {
+  color: #64748b;
+  font-style: normal;
+  font-weight: 900;
+  text-align: right;
+}
+
+.code-map code {
+  min-width: 0;
+  color: #0f172a;
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
 .story-card,
 .output-card {
   display: grid;
@@ -174,6 +231,16 @@ textarea:focus-visible {
   background: #f8fafc;
   list-style: none;
   padding: 12px;
+}
+
+.story-step:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+.story-step.is-selected {
+  background: #fffbeb;
+  box-shadow: 0 0 0 3px #fde68a;
 }
 
 .story-step--memory {

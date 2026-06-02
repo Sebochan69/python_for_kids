@@ -10,11 +10,14 @@ export function App() {
   const [runResult, setRunResult] = useState<RunCodeResponse | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
+  const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
+  const codeLines = code.split('\n');
 
   async function handleRunMission() {
     setIsRunning(true);
     setRunError(null);
+    setHighlightedLine(null);
 
     try {
       const result = await runCode(code);
@@ -60,8 +63,27 @@ export function App() {
             aria-label="Python code"
             spellCheck={false}
             value={code}
-            onChange={(event) => setCode(event.target.value)}
+            onChange={(event) => {
+              setCode(event.target.value);
+              setHighlightedLine(null);
+            }}
           />
+          <div className="code-map" aria-label="Code line map">
+            <span>Code Map</span>
+            <ol>
+              {codeLines.map((line, index) => {
+                const lineNumber = index + 1;
+                const isHighlighted = highlightedLine === lineNumber;
+
+                return (
+                  <li key={`${lineNumber}-${line}`} className={isHighlighted ? 'is-highlighted' : ''}>
+                    <em>{lineNumber}</em>
+                    <code>{line || ' '}</code>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </section>
 
         <section className="story-card" aria-labelledby="story-title">
@@ -73,7 +95,17 @@ export function App() {
           {runResult && (
             <ol className="story-list">
               {storyCards.map((card, index) => (
-                <li key={card.id} className={`story-step story-step--${card.kind}`}>
+                <li
+                  key={card.id}
+                  className={`story-step story-step--${card.kind} ${
+                    card.lineNumber !== null && highlightedLine === card.lineNumber ? 'is-selected' : ''
+                  }`}
+                  onBlur={() => setHighlightedLine(null)}
+                  onFocus={() => setHighlightedLine(card.lineNumber)}
+                  onMouseEnter={() => setHighlightedLine(card.lineNumber)}
+                  onMouseLeave={() => setHighlightedLine(null)}
+                  tabIndex={0}
+                >
                   <span>Story Step {index + 1}</span>
                   <strong>{card.title}</strong>
                   <p>{card.detail}</p>
