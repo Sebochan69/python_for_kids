@@ -72,6 +72,13 @@ h1 {
   line-height: 1;
 }
 
+.app-subtitle {
+  margin-top: 8px;
+  color: #486581;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
 h2 {
   color: #17324d;
   font-size: 1.1rem;
@@ -130,6 +137,25 @@ h2 {
   line-height: 1.4;
 }
 
+.mission-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 2px;
+}
+
+.mission-meta span {
+  border: 1px solid #99f6e4;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0f766e;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.2;
+  padding: 6px 9px;
+  text-transform: capitalize;
+}
+
 .mission-picker {
   display: grid;
   gap: 6px;
@@ -164,6 +190,16 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.run-status {
+  border: 1px solid #bae6fd;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 800;
+  line-height: 1.4;
+  padding: 9px 11px;
 }
 
 textarea {

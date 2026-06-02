@@ -68,6 +68,7 @@ export function App() {
         <div>
           <p className="eyebrow">Python for Kids</p>
           <h1>{activeLesson.title}</h1>
+          <p className="app-subtitle">Write tiny code. Run it. Watch Python's story.</p>
         </div>
         <button type="button" onClick={resetMission}>
           Reset Code
@@ -89,6 +90,11 @@ export function App() {
           </label>
           <h2 id="mission-title">{activeLesson.mission_prompt}</h2>
           <p>{activeLesson.summary}</p>
+          <div className="mission-meta" aria-label="Mission details">
+            <span>{activeLesson.difficulty}</span>
+            <span>{activeLesson.topic}</span>
+            <span>Ages {activeLesson.age_range}</span>
+          </div>
           <ul>
             {activeLesson.learning_goals.map((goal) => (
               <li key={goal}>{goal}</li>
@@ -103,6 +109,7 @@ export function App() {
               {isRunning ? 'Running...' : 'Run Mission'}
             </button>
           </div>
+          {isRunning && <p className="run-status">Python is trying the mission now...</p>}
           <textarea
             aria-label="Python code"
             spellCheck={false}
@@ -133,7 +140,8 @@ export function App() {
         <section className="story-card" aria-labelledby="story-title">
           <h2 id="story-title">What Python Did</h2>
           {runError && <p className="error-message">{runError}</p>}
-          {!runResult && !runError && (
+          {isRunning && <p className="empty-message">Python is making the story steps...</p>}
+          {!runResult && !runError && !isRunning && (
             <p className="empty-message">Press Run Mission to see Python's story.</p>
           )}
           {runResult && (
@@ -193,7 +201,7 @@ export function App() {
 
         <section className="output-card" aria-labelledby="output-title">
           <h2 id="output-title">Python Says</h2>
-          <pre>{runResult?.stdout || '(nothing yet)'}</pre>
+          <pre>{isRunning ? 'Python is thinking...' : runResult?.stdout || '(nothing yet)'}</pre>
           {runResult?.stderr && <p className="error-message">{runResult.stderr}</p>}
           <div className={`validation-card validation-card--${validationResult.status}`}>
             <span>Mission Check</span>
