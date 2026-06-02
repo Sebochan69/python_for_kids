@@ -95,7 +95,7 @@ export function App() {
         <div>
           <p className="eyebrow">Python for Kids</p>
           <h1>{activeLesson.title}</h1>
-          <p className="app-subtitle">Write tiny code. Run it. Watch Python's story.</p>
+          <p className="app-subtitle">Write tiny code. Run a quest. Watch Python's story.</p>
           <div className="adventure-trail" aria-label="Mission path">
             <span>Pick</span>
             <span>Code</span>
@@ -104,15 +104,15 @@ export function App() {
           </div>
         </div>
         <button type="button" onClick={resetMission}>
-          Reset Code
+          Reset Quest
         </button>
       </header>
 
       <section className="workspace-grid" aria-label="Python mission workspace">
         <section className="mission-card" aria-labelledby="mission-title">
-          <span className="section-kicker">Mission</span>
+          <span className="section-kicker">Quest</span>
           <label className="mission-picker">
-            <strong>Choose a mission</strong>
+            <strong>Choose a quest</strong>
             <select value={activeLesson.id} onChange={(event) => loadLesson(event.target.value)}>
               {LESSONS.map((lesson) => (
                 <option key={lesson.id} value={lesson.id}>
@@ -142,17 +142,17 @@ export function App() {
 
         <section className="code-card" aria-labelledby="code-title">
           <div className="card-header">
-            <h2 id="code-title">Your Code</h2>
+            <h2 id="code-title">Code Box</h2>
             <button type="button" onClick={handleRunMission} disabled={isRunning}>
-              {isRunning ? 'Running...' : 'Run Mission'}
+              {isRunning ? 'Running...' : 'Run Quest'}
             </button>
           </div>
           <p id="code-help" className="code-help">
-            Change the code, then run the mission to see what Python does.
+            Change the code, then run the quest to see what Python does.
           </p>
           {isRunning && (
             <p className="run-status" role="status" aria-live="polite">
-              Python is trying the mission now...
+              Python is trying the quest now...
             </p>
           )}
           <div className="editor-frame">
@@ -176,7 +176,7 @@ export function App() {
             />
           </div>
           <div className="code-map" aria-label="Code line map">
-            <span>Code Map</span>
+            <span>Line Map</span>
             <ol>
               {codeLines.map((line, index) => {
                 const lineNumber = index + 1;
@@ -194,7 +194,7 @@ export function App() {
         </section>
 
         <section className="story-card" aria-labelledby="story-title">
-          <h2 id="story-title">What Python Did</h2>
+          <h2 id="story-title">Adventure Log</h2>
           {runError && (
             <p className="error-message" role="alert">
               {runError}
@@ -206,7 +206,7 @@ export function App() {
             </p>
           )}
           {!runResult && !runError && !isRunning && (
-            <p className="empty-message">Press Run Mission to see Python's story.</p>
+            <p className="empty-message">Press Run Quest to see Python's story.</p>
           )}
           {runResult && (
             <ol className="story-list" aria-live="polite">
@@ -245,21 +245,21 @@ export function App() {
           )}
           {validationResult.status === 'complete' && (
             <div className="celebration-banner" role="status" aria-live="polite">
-              <span>Mission unlocked</span>
+              <span>Quest cleared</span>
               <strong>You earned today&apos;s coding badge.</strong>
-              <p>Nice work. You made Python follow the mission from code to output.</p>
+              <p>Nice work. You made Python follow the quest from code to output.</p>
             </div>
           )}
           {validationResult.status === 'complete' && nextLesson && (
             <button type="button" onClick={() => loadLesson(nextLesson.id)}>
-              Next Mission: {nextLesson.title}
+              Next Quest: {nextLesson.title}
             </button>
           )}
           <div className="helper-card" aria-label="Mission helper">
             <div className="helper-heading">
               <span className="buddy-face" aria-hidden="true">Hi</span>
               <div>
-                <span>Code Buddy</span>
+                <span>Guide Message</span>
                 <p>Small clues, no full answers.</p>
               </div>
             </div>
@@ -295,7 +295,7 @@ export function App() {
             role="status"
             aria-live="polite"
           >
-            <span>Mission Check</span>
+            <span>Quest Check</span>
             <strong>{validationResult.title}</strong>
             <p>{validationResult.message}</p>
             {runResult && (
