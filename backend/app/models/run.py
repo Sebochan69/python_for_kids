@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -23,8 +23,26 @@ class RunError(BaseModel):
     line_number: int | None = None
 
 
+class KidRuntimeEvent(BaseModel):
+    id: str
+    type: Literal[
+        "execution_started",
+        "line_executed",
+        "variable_remembered",
+        "variable_changed",
+        "printed_output",
+        "error",
+        "execution_finished",
+    ]
+    step: int
+    line_number: int | None = None
+    message: str
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
 class RunCodeResponse(BaseModel):
     status: Literal["ok", "error", "timeout"]
+    events: list[KidRuntimeEvent] = Field(default_factory=list)
     stdout: str
     stderr: str
     errors: list[RunError]
