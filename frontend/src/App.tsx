@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { runCode } from './api';
 import { explainStoryStep, giveMissionHint, type HelperResponse } from './helper';
 import { LESSONS } from './lessons';
@@ -16,6 +16,61 @@ const STORY_BADGES: Record<StoryCard['kind'], string> = {
 };
 
 const INDENT = '    ';
+const PYTHON_TOKEN_PATTERN =
+  /(#.*$|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:def|for|in|if|else|elif|return|True|False|None|range)\b|\b(?:print|len|str|int|float|list|dict|sum)\b|\b\d+(?:\.\d+)?\b|[()+\-*/=<>:,.])/g;
+const PYTHON_KEYWORDS = new Set(['def', 'for', 'in', 'if', 'else', 'elif', 'return', 'True', 'False', 'None', 'range']);
+const PYTHON_BUILTINS = new Set(['print', 'len', 'str', 'int', 'float', 'list', 'dict', 'sum']);
+
+function tokenClassName(token: string) {
+  if (token.startsWith('#')) {
+    return 'syntax-token syntax-comment';
+  }
+
+  if (token.startsWith('"') || token.startsWith("'")) {
+    return 'syntax-token syntax-string';
+  }
+
+  if (/^\d/.test(token)) {
+    return 'syntax-token syntax-number';
+  }
+
+  if (PYTHON_KEYWORDS.has(token)) {
+    return 'syntax-token syntax-keyword';
+  }
+
+  if (PYTHON_BUILTINS.has(token)) {
+    return 'syntax-token syntax-builtin';
+  }
+
+  return 'syntax-token syntax-operator';
+}
+
+function highlightPythonLine(line: string): ReactNode[] {
+  const highlightedLine: ReactNode[] = [];
+  let lastIndex = 0;
+
+  for (const match of line.matchAll(PYTHON_TOKEN_PATTERN)) {
+    const token = match[0];
+    const tokenIndex = match.index ?? 0;
+
+    if (tokenIndex > lastIndex) {
+      highlightedLine.push(line.slice(lastIndex, tokenIndex));
+    }
+
+    highlightedLine.push(
+      <span key={`${token}-${tokenIndex}`} className={tokenClassName(token)}>
+        {token}
+      </span>,
+    );
+    lastIndex = tokenIndex + token.length;
+  }
+
+  if (lastIndex < line.length) {
+    highlightedLine.push(line.slice(lastIndex));
+  }
+
+  return highlightedLine;
+}
 
 export function App() {
   const [activeLessonId, setActiveLessonId] = useState(LESSONS[0].id);
@@ -277,19 +332,29 @@ export function App() {
                 ))}
               </ol>
             </div>
-            <textarea
-              ref={codeEditorRef}
-              aria-label="Python code"
-              aria-describedby="code-help"
-              spellCheck={false}
-              value={code}
-              onChange={(event) => {
-                setCode(event.target.value);
-                setHighlightedLine(null);
-              }}
-              onKeyDown={handleCodeKeyDown}
-              onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
-            />
+            <div className="editor-code-layer">
+              <pre className="syntax-highlight" aria-hidden="true" style={{ transform: `translateY(-${codeScrollTop}px)` }}>
+                {codeLines.map((line, index) => (
+                  <span className="syntax-line" key={`${index}-${line}`}>
+                    {highlightPythonLine(line)}
+                    {index < codeLines.length - 1 ? '\n' : null}
+                  </span>
+                ))}
+              </pre>
+              <textarea
+                ref={codeEditorRef}
+                aria-label="Python code"
+                aria-describedby="code-help"
+                spellCheck={false}
+                value={code}
+                onChange={(event) => {
+                  setCode(event.target.value);
+                  setHighlightedLine(null);
+                }}
+                onKeyDown={handleCodeKeyDown}
+                onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
+              />
+            </div>
           </div>
         </section>
 
