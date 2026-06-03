@@ -1,4 +1,4 @@
-import { useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { runCode } from './api';
 import { explainStoryStep, giveMissionHint, type HelperResponse } from './helper';
 import { LESSONS } from './lessons';
@@ -15,12 +15,15 @@ const STORY_BADGES: Record<StoryCard['kind'], string> = {
   finish: 'Done',
 };
 
+const INDENT = '    ';
+
 export function App() {
   const [activeLessonId, setActiveLessonId] = useState(LESSONS[0].id);
   const activeLessonIndex = LESSONS.findIndex((lesson) => lesson.id === activeLessonId);
   const activeLesson = LESSONS[activeLessonIndex] ?? LESSONS[0];
   const nextLesson = LESSONS[activeLessonIndex + 1];
   const [code, setCode] = useState(activeLesson.starter_code);
+  const codeEditorRef = useRef<HTMLTextAreaElement | null>(null);
   const [runResult, setRunResult] = useState<RunCodeResponse | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
@@ -95,6 +98,57 @@ export function App() {
       event.preventDefault();
       selectStoryCard(card);
     }
+  }
+
+  function setCodeAndCursor(nextCode: string, selectionStart: number, selectionEnd = selectionStart) {
+    setCode(nextCode);
+    setHighlightedLine(null);
+
+    window.requestAnimationFrame(() => {
+      const editor = codeEditorRef.current;
+
+      if (editor) {
+        editor.selectionStart = selectionStart;
+        editor.selectionEnd = selectionEnd;
+      }
+    });
+  }
+
+  function handleCodeKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key !== 'Tab') {
+      return;
+    }
+
+    event.preventDefault();
+
+    const editor = event.currentTarget;
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const currentCode = editor.value;
+
+    if (event.shiftKey) {
+      const lineStart = currentCode.lastIndexOf('\n', start - 1) + 1;
+      const line = currentCode.slice(lineStart);
+      const removableIndent = line.startsWith(INDENT)
+        ? INDENT.length
+        : Math.min(line.match(/^ +/)?.[0].length ?? 0, INDENT.length);
+
+      if (removableIndent === 0) {
+        return;
+      }
+
+      const nextCode = `${currentCode.slice(0, lineStart)}${currentCode.slice(lineStart + removableIndent)}`;
+      const nextStart = Math.max(lineStart, start - removableIndent);
+      const nextEnd = Math.max(nextStart, end - removableIndent);
+
+      setCodeAndCursor(nextCode, nextStart, nextEnd);
+      return;
+    }
+
+    const nextCode = `${currentCode.slice(0, start)}${INDENT}${currentCode.slice(end)}`;
+    const nextCursor = start + INDENT.length;
+
+    setCodeAndCursor(nextCode, nextCursor);
   }
 
   async function handleRunMission() {
@@ -224,6 +278,7 @@ export function App() {
               </ol>
             </div>
             <textarea
+              ref={codeEditorRef}
               aria-label="Python code"
               aria-describedby="code-help"
               spellCheck={false}
@@ -232,6 +287,7 @@ export function App() {
                 setCode(event.target.value);
                 setHighlightedLine(null);
               }}
+              onKeyDown={handleCodeKeyDown}
               onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
             />
           </div>
