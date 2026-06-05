@@ -96,6 +96,47 @@ export function App() {
   const codeLines = code.split('\n');
   const activeQuestNumber = activeLessonIndex + 1;
   const earnedBadgeText = validationResult.concepts.found.map(conceptLabel).join(', ') || 'Quest Badge';
+  const buddyState = (() => {
+    if (isRunning) {
+      return 'thinking';
+    }
+
+    if (validationResult.status === 'complete') {
+      return 'celebrating';
+    }
+
+    if (runError || runResult?.status === 'error' || runResult?.status === 'timeout') {
+      return 'encouraging';
+    }
+
+    if (selectedStoryCard) {
+      return 'explaining';
+    }
+
+    return 'idle';
+  })();
+  const buddyCopy = {
+    idle: {
+      title: 'Ready for a quest',
+      message: 'Write a tiny bit of Python, then run it to see the adventure log.',
+    },
+    thinking: {
+      title: 'Checking the code',
+      message: 'I am watching what Python does, one step at a time.',
+    },
+    celebrating: {
+      title: 'Quest cleared',
+      message: 'Nice work. You earned a coding badge for this quest.',
+    },
+    encouraging: {
+      title: 'Let us fix it',
+      message: 'Pick the Fix step and check the code line. Small changes are enough.',
+    },
+    explaining: {
+      title: 'Step selected',
+      message: 'Press Explain Step and I will talk about this part of Python.',
+    },
+  }[buddyState];
   const tryNextMessage = (() => {
     if (validationResult.status === 'not_run') {
       return 'Start by reading the goal, then press Run Quest.';
@@ -435,11 +476,23 @@ export function App() {
             </button>
           )}
           <div className="helper-card" aria-label="Mission helper">
-            <div className="helper-heading">
-              <span className="buddy-face" aria-hidden="true">Hi</span>
+            <div className={`code-buddy code-buddy--${buddyState}`} aria-live="polite">
+              <div className="robot-guide" aria-hidden="true">
+                <span className="robot-antenna" />
+                <span className="robot-head">
+                  <span className="robot-eye robot-eye--left" />
+                  <span className="robot-eye robot-eye--right" />
+                  <span className="robot-mouth" />
+                </span>
+                <span className="robot-body">
+                  <span />
+                  <span />
+                </span>
+              </div>
               <div>
-                <span>Guide Message</span>
-                <p>Small clues, no full answers.</p>
+                <span className="buddy-label">Code Buddy</span>
+                <strong>{buddyCopy.title}</strong>
+                <p>{buddyCopy.message}</p>
               </div>
             </div>
             <div className="helper-actions">
