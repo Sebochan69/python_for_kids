@@ -95,7 +95,6 @@ export function App() {
   const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
   const activeQuestNumber = activeLessonIndex + 1;
-  const earnedBadgeText = validationResult.concepts.found.map(conceptLabel).join(', ') || 'Quest Badge';
   const buddyState = (() => {
     if (isRunning) {
       return 'thinking';
@@ -133,8 +132,8 @@ export function App() {
       message: 'I am watching what Python does, one step at a time.',
     },
     celebrating: {
-      title: 'Quest cleared',
-      message: 'Great job. You solved the quest and earned a coding badge.',
+      title: 'You got it',
+      message: 'Great job. You solved the quest from code to output.',
     },
     encouraging: {
       title: 'Are you sure about that?',
@@ -368,11 +367,6 @@ export function App() {
             <span>{activeLesson.topic}</span>
             <span>Ages {activeLesson.age_range}</span>
           </div>
-          <div className="mission-badge-strip" aria-label="Mission rewards">
-            {activeLesson.required_concepts.map((concept) => (
-              <span key={concept}>{conceptLabel(concept)}</span>
-            ))}
-          </div>
           <ul>
             {activeLesson.learning_goals.map((goal) => (
               <li key={goal}>{goal}</li>
@@ -462,20 +456,6 @@ export function App() {
                   </div>
                 </dl>
               )}
-              <div className="concept-badges" aria-label="Mission skill badges">
-                <span>Badge Room</span>
-                <ul>
-                  {validationResult.concepts.required.map((concept) => {
-                    const isFound = validationResult.concepts.found.includes(concept);
-
-                    return (
-                      <li key={concept} className={isFound ? 'is-earned' : 'is-waiting'}>
-                        {conceptLabel(concept)}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
             </div>
           </section>
         </section>
@@ -529,13 +509,6 @@ export function App() {
                 </li>
               ))}
             </ol>
-          )}
-          {validationResult.status === 'complete' && (
-            <div className="celebration-banner" role="status" aria-live="polite">
-              <span>Quest cleared</span>
-              <strong>Badge earned: {earnedBadgeText}</strong>
-              <p>Nice work. You made Python follow the quest from code to output.</p>
-            </div>
           )}
           {validationResult.status === 'complete' && nextLesson && (
             <button type="button" onClick={() => loadLesson(nextLesson.id)}>
