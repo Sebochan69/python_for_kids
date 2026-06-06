@@ -383,53 +383,104 @@ export function App() {
           </ul>
         </section>
 
-        <section className="code-card" aria-labelledby="code-title">
-          <div className="card-header">
-            <h2 id="code-title">Code Box</h2>
-            <button type="button" onClick={handleRunMission} disabled={isRunning}>
-              {isRunning ? 'Running...' : 'Run Quest'}
-            </button>
-          </div>
-          <p id="code-help" className="code-help">
-            Change the code, then run the quest to see what Python does.
-          </p>
-          {isRunning && (
-            <p className="run-status" role="status" aria-live="polite">
-              Python is trying the quest now...
+        <section className="coding-station" aria-label="Coding station">
+          <section className="code-card" aria-labelledby="code-title">
+            <div className="card-header">
+              <h2 id="code-title">Code Box</h2>
+              <button type="button" onClick={handleRunMission} disabled={isRunning}>
+                {isRunning ? 'Running...' : 'Run Quest'}
+              </button>
+            </div>
+            <p id="code-help" className="code-help">
+              Change the code, then run the quest to see what Python does.
             </p>
-          )}
-          <div className="editor-frame">
-            <div className="editor-line-numbers" aria-hidden="true">
-              <ol style={{ transform: `translateY(-${codeScrollTop}px)` }}>
-                {codeLines.map((_, index) => (
-                  <li key={index + 1}>{index + 1}</li>
-                ))}
-              </ol>
+            {isRunning && (
+              <p className="run-status" role="status" aria-live="polite">
+                Python is trying the quest now...
+              </p>
+            )}
+            <div className="editor-frame">
+              <div className="editor-line-numbers" aria-hidden="true">
+                <ol style={{ transform: `translateY(-${codeScrollTop}px)` }}>
+                  {codeLines.map((_, index) => (
+                    <li key={index + 1}>{index + 1}</li>
+                  ))}
+                </ol>
+              </div>
+              <div className="editor-code-layer">
+                <pre className="syntax-highlight" aria-hidden="true" style={{ transform: `translateY(-${codeScrollTop}px)` }}>
+                  {codeLines.map((line, index) => (
+                    <span className="syntax-line" key={`${index}-${line}`}>
+                      {highlightPythonLine(line)}
+                      {index < codeLines.length - 1 ? '\n' : null}
+                    </span>
+                  ))}
+                </pre>
+                <textarea
+                  ref={codeEditorRef}
+                  aria-label="Python code"
+                  aria-describedby="code-help"
+                  spellCheck={false}
+                  value={code}
+                  onChange={(event) => {
+                    setCode(event.target.value);
+                    setHighlightedLine(null);
+                  }}
+                  onKeyDown={handleCodeKeyDown}
+                  onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
+                />
+              </div>
             </div>
-            <div className="editor-code-layer">
-              <pre className="syntax-highlight" aria-hidden="true" style={{ transform: `translateY(-${codeScrollTop}px)` }}>
-                {codeLines.map((line, index) => (
-                  <span className="syntax-line" key={`${index}-${line}`}>
-                    {highlightPythonLine(line)}
-                    {index < codeLines.length - 1 ? '\n' : null}
-                  </span>
-                ))}
-              </pre>
-              <textarea
-                ref={codeEditorRef}
-                aria-label="Python code"
-                aria-describedby="code-help"
-                spellCheck={false}
-                value={code}
-                onChange={(event) => {
-                  setCode(event.target.value);
-                  setHighlightedLine(null);
-                }}
-                onKeyDown={handleCodeKeyDown}
-                onScroll={(event) => setCodeScrollTop(event.currentTarget.scrollTop)}
-              />
+          </section>
+
+          <section className="output-card" aria-labelledby="output-title">
+            <h2 id="output-title">Python Printed</h2>
+            <pre aria-live="polite">{isRunning ? 'Python is thinking...' : runResult?.stdout || '(nothing yet)'}</pre>
+            {runResult?.stderr && (
+              <p className="error-message" role="alert">
+                {runResult.stderr}
+              </p>
+            )}
+            <div
+              className={`validation-card validation-card--${validationResult.status}`}
+              role="status"
+              aria-live="polite"
+            >
+              <span>Quest Check</span>
+              <strong>{validationResult.title}</strong>
+              <p>{validationResult.message}</p>
+              <p className="try-next">
+                <span>Try next</span>
+                {tryNextMessage}
+              </p>
+              {runResult && (
+                <dl>
+                  <div>
+                    <dt>Goal</dt>
+                    <dd>{validationResult.expectedOutput || '(nothing)'}</dd>
+                  </div>
+                  <div>
+                    <dt>Python printed</dt>
+                    <dd>{validationResult.actualOutput || '(nothing)'}</dd>
+                  </div>
+                </dl>
+              )}
+              <div className="concept-badges" aria-label="Mission skill badges">
+                <span>Badge Room</span>
+                <ul>
+                  {validationResult.concepts.required.map((concept) => {
+                    const isFound = validationResult.concepts.found.includes(concept);
+
+                    return (
+                      <li key={concept} className={isFound ? 'is-earned' : 'is-waiting'}>
+                        {conceptLabel(concept)}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
-          </div>
+          </section>
         </section>
 
         <section className="story-card" aria-labelledby="story-title">
@@ -510,54 +561,6 @@ export function App() {
           )}
         </section>
 
-        <section className="output-card" aria-labelledby="output-title">
-          <h2 id="output-title">Python Says</h2>
-          <pre aria-live="polite">{isRunning ? 'Python is thinking...' : runResult?.stdout || '(nothing yet)'}</pre>
-          {runResult?.stderr && (
-            <p className="error-message" role="alert">
-              {runResult.stderr}
-            </p>
-          )}
-          <div
-            className={`validation-card validation-card--${validationResult.status}`}
-            role="status"
-            aria-live="polite"
-          >
-            <span>Quest Check</span>
-            <strong>{validationResult.title}</strong>
-            <p>{validationResult.message}</p>
-            <p className="try-next">
-              <span>Try next</span>
-              {tryNextMessage}
-            </p>
-            {runResult && (
-              <dl>
-                <div>
-                  <dt>Goal</dt>
-                  <dd>{validationResult.expectedOutput || '(nothing)'}</dd>
-                </div>
-                <div>
-                  <dt>Python said</dt>
-                  <dd>{validationResult.actualOutput || '(nothing)'}</dd>
-                </div>
-              </dl>
-            )}
-            <div className="concept-badges" aria-label="Mission skill badges">
-              <span>Badge Room</span>
-              <ul>
-                {validationResult.concepts.required.map((concept) => {
-                  const isFound = validationResult.concepts.found.includes(concept);
-
-                  return (
-                    <li key={concept} className={isFound ? 'is-earned' : 'is-waiting'}>
-                      {conceptLabel(concept)}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-        </section>
       </section>
       <aside className={`floating-buddy floating-buddy--${buddyState}`} aria-label="Code Buddy helper">
         {isBuddyOpen && (

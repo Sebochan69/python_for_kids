@@ -208,6 +208,13 @@ h2 {
   gap: 16px;
 }
 
+.coding-station {
+  min-width: 0;
+  display: grid;
+  grid-row: span 2;
+  gap: 16px;
+}
+
 .mission-card,
 .code-card,
 .story-card,
@@ -345,7 +352,6 @@ h2 {
   min-height: 430px;
   display: flex;
   flex-direction: column;
-  grid-row: span 2;
   gap: 12px;
 }
 
@@ -1299,7 +1305,7 @@ pre {
     grid-template-rows: auto;
   }
 
-  .code-card {
+  .coding-station {
     grid-row: auto;
   }
 
