@@ -131,38 +131,81 @@ h1 {
   line-height: 1.45;
 }
 
-.quest-map {
+.quest-nav {
   display: grid;
   gap: 8px;
   margin-top: 12px;
 }
 
-.quest-map > span {
+.quest-nav > span {
   color: var(--quest-dark);
   font-size: 0.78rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.quest-map > div {
+.quest-nav-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.quest-map-button {
-  width: 42px;
+.quest-nav-actions button {
   min-height: 38px;
-  padding: 0;
-  background: var(--paper);
-  color: var(--frame);
 }
 
-.quest-map-button.is-active {
+.quest-list-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  border: 3px solid var(--frame);
+  background: var(--paper);
+  padding: 12px;
+}
+
+.quest-list-group {
+  display: grid;
+  gap: 8px;
+}
+
+.quest-list-group h2 {
+  font-size: 0.86rem;
+}
+
+.quest-list-group > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quest-list-button {
+  min-height: 58px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 3px;
+  background: var(--paper);
+  color: var(--frame);
+  padding: 9px 10px;
+  text-align: left;
+}
+
+.quest-list-button span {
+  color: var(--quest-dark);
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quest-list-button strong {
+  line-height: 1.25;
+}
+
+.quest-list-button.is-active {
   background: var(--sun);
 }
 
-.quest-map-button.is-complete {
+.quest-list-button.is-complete {
   background: var(--mint);
 }
 
@@ -1163,6 +1206,10 @@ pre {
   .workspace-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+  }
+
+  .quest-list-group > div {
+    grid-template-columns: 1fr;
   }
 
   .coding-station {

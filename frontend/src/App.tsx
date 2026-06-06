@@ -22,6 +22,29 @@ const PYTHON_KEYWORDS = new Set(['def', 'for', 'in', 'if', 'else', 'elif', 'retu
 const PYTHON_BUILTINS = new Set(['print', 'len', 'str', 'int', 'float', 'list', 'dict', 'sum']);
 type BuddyAction = 'explain' | 'hint' | null;
 
+const QUEST_GROUPS = [
+  {
+    title: 'Start',
+    lessonIds: ['say-hello', 'remember-a-name', 'words-and-numbers'],
+  },
+  {
+    title: 'Build',
+    lessonIds: ['add-numbers', 'join-words', 'change-a-score'],
+  },
+  {
+    title: 'Think',
+    lessonIds: ['compare-scores', 'choose-a-game', 'repeat-a-cheer'],
+  },
+  {
+    title: 'Create',
+    lessonIds: ['list-of-friends', 'function-machine'],
+  },
+  {
+    title: 'Checkpoints',
+    lessonIds: ['checkpoint-first-words', 'checkpoint-number-adventure', 'checkpoint-mini-party'],
+  },
+];
+
 function tokenClassName(token: string) {
   if (token.startsWith('#')) {
     return 'syntax-token syntax-comment';
@@ -77,6 +100,7 @@ export function App() {
   const [activeLessonId, setActiveLessonId] = useState(LESSONS[0].id);
   const activeLessonIndex = LESSONS.findIndex((lesson) => lesson.id === activeLessonId);
   const activeLesson = LESSONS[activeLessonIndex] ?? LESSONS[0];
+  const previousLesson = LESSONS[activeLessonIndex - 1];
   const nextLesson = LESSONS[activeLessonIndex + 1];
   const [code, setCode] = useState(activeLesson.starter_code);
   const codeEditorRef = useRef<HTMLTextAreaElement | null>(null);
@@ -88,6 +112,7 @@ export function App() {
   const [completedQuestIds, setCompletedQuestIds] = useState<string[]>([]);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
   const [isBuddyOpen, setIsBuddyOpen] = useState(false);
+  const [isQuestListOpen, setIsQuestListOpen] = useState(false);
   const [buddyAction, setBuddyAction] = useState<BuddyAction>(null);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
@@ -183,6 +208,7 @@ export function App() {
     setCodeScrollTop(0);
     setSelectedStoryCardId(null);
     setIsBuddyOpen(false);
+    setIsQuestListOpen(false);
     setBuddyAction(null);
     setHelperResponse(null);
   }
@@ -319,30 +345,62 @@ export function App() {
         <div>
           <h1>Python for Kids</h1>
           <p className="app-subtitle">A playful coding lab for classroom Python foundations.</p>
-          <nav className="quest-map" aria-label="Quest map">
+          <nav className="quest-nav" aria-label="Quest navigation">
             <span>
               Quest {activeQuestNumber} of {LESSONS.length}
             </span>
-            <div>
-              {LESSONS.map((lesson, index) => {
-                const isActive = lesson.id === activeLesson.id;
-                const isComplete = completedQuestIds.includes(lesson.id);
-
-                return (
-                  <button
-                    key={lesson.id}
-                    type="button"
-                    className={`quest-map-button ${isActive ? 'is-active' : ''} ${isComplete ? 'is-complete' : ''}`}
-                    aria-current={isActive ? 'step' : undefined}
-                    aria-label={`Quest ${index + 1}: ${lesson.title}${isComplete ? ', cleared' : ''}`}
-                    onClick={() => loadLesson(lesson.id)}
-                  >
-                    {index + 1}
-                  </button>
-                );
-              })}
+            <div className="quest-nav-actions">
+              <button type="button" onClick={() => previousLesson && loadLesson(previousLesson.id)} disabled={!previousLesson}>
+                Previous
+              </button>
+              <button
+                type="button"
+                aria-expanded={isQuestListOpen}
+                aria-controls="quest-list"
+                onClick={() => setIsQuestListOpen((isOpen) => !isOpen)}
+              >
+                Quest List
+              </button>
+              <button type="button" onClick={() => nextLesson && loadLesson(nextLesson.id)} disabled={!nextLesson}>
+                Next
+              </button>
             </div>
           </nav>
+          {isQuestListOpen && (
+            <div className="quest-list-panel" id="quest-list" aria-label="All quests">
+              {QUEST_GROUPS.map((group) => (
+                <section key={group.title} className="quest-list-group" aria-label={`${group.title} quests`}>
+                  <h2>{group.title}</h2>
+                  <div>
+                    {group.lessonIds.map((lessonId) => {
+                      const lesson = LESSONS.find((candidate) => candidate.id === lessonId);
+
+                      if (!lesson) {
+                        return null;
+                      }
+
+                      const lessonNumber = LESSONS.findIndex((candidate) => candidate.id === lesson.id) + 1;
+                      const isActive = lesson.id === activeLesson.id;
+                      const isComplete = completedQuestIds.includes(lesson.id);
+
+                      return (
+                        <button
+                          key={lesson.id}
+                          type="button"
+                          className={`quest-list-button ${isActive ? 'is-active' : ''} ${isComplete ? 'is-complete' : ''}`}
+                          aria-current={isActive ? 'step' : undefined}
+                          onClick={() => loadLesson(lesson.id)}
+                        >
+                          <span>Quest {lessonNumber}</span>
+                          <strong>{lesson.title}</strong>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )}
         </div>
         <button type="button" onClick={resetMission}>
           Reset Quest
