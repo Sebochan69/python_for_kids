@@ -99,6 +99,7 @@ button:disabled {
 }
 
 .top-bar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,6 +108,11 @@ button:disabled {
   background: var(--screen-bright);
   box-shadow: 7px 7px 0 rgb(35 49 66 / 90%);
   padding: 18px;
+}
+
+.top-bar > div {
+  min-width: 0;
+  position: relative;
 }
 
 h1,
@@ -155,11 +161,18 @@ h1 {
 }
 
 .quest-list-panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 12px);
+  left: 0;
+  width: min(680px, calc(100vw - 52px));
+  max-height: min(560px, calc(100vh - 176px));
+  overflow: auto;
   display: grid;
   gap: 12px;
-  margin-top: 14px;
   border: 3px solid var(--frame);
   background: var(--paper);
+  box-shadow: 7px 7px 0 rgb(35 49 66 / 90%);
   padding: 12px;
 }
 
@@ -1206,6 +1219,11 @@ pre {
   .workspace-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+  }
+
+  .quest-list-panel {
+    width: min(100%, calc(100vw - 32px));
+    max-height: min(520px, calc(100vh - 160px));
   }
 
   .quest-list-group > div {
