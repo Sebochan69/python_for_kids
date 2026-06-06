@@ -140,8 +140,8 @@ export function App() {
       message: 'Great job. You solved the quest and earned a coding badge.',
     },
     encouraging: {
-      title: 'Let us fix it',
-      message: 'Pick the Fix step and check the code line. Small changes are enough.',
+      title: 'Are you sure about that?',
+      message: 'Something surprised Python. Check the Fix step and try one small change.',
     },
     explaining: {
       title: 'Step selected',
@@ -606,16 +606,23 @@ export function App() {
           }}
         >
           <span className="robot-guide" aria-hidden="true">
+            <span className="robot-signal">!</span>
             <span className="robot-antenna" />
             <span className="robot-head">
+              <span className="robot-brow robot-brow--left" />
+              <span className="robot-brow robot-brow--right" />
               <span className="robot-eye robot-eye--left" />
               <span className="robot-eye robot-eye--right" />
               <span className="robot-mouth" />
             </span>
+            <span className="robot-arm robot-arm--left" />
+            <span className="robot-arm robot-arm--right" />
             <span className="robot-body">
               <span />
               <span />
             </span>
+            <span className="robot-spark robot-spark--left" />
+            <span className="robot-spark robot-spark--right" />
           </span>
           <span>Help</span>
         </button>
