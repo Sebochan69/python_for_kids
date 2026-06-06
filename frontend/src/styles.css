@@ -819,8 +819,8 @@ pre {
 
 .robot-guide {
   position: relative;
-  width: 64px;
-  height: 76px;
+  width: 72px;
+  height: 78px;
   animation: buddy-bounce 2.6s ease-in-out infinite;
 }
 
@@ -841,81 +841,129 @@ pre {
 }
 
 .robot-antenna {
-  position: absolute;
-  left: 29px;
-  top: 0;
-  width: 6px;
-  height: 14px;
-  border: 3px solid var(--frame);
-  border-bottom: 0;
-  background: var(--sun);
+  display: none;
 }
 
 .robot-antenna::before {
-  position: absolute;
-  left: -7px;
-  top: -12px;
-  width: 14px;
-  height: 14px;
-  border: 3px solid var(--frame);
-  background: var(--sun);
-  content: "";
-  animation: buddy-light 1.6s steps(2, end) infinite;
+  content: none;
 }
 
 .robot-head {
   position: absolute;
-  left: 6px;
-  top: 13px;
-  width: 52px;
-  height: 42px;
+  left: 3px;
+  top: 7px;
+  width: 66px;
+  height: 53px;
   border: 4px solid var(--frame);
+  border-radius: 48% 52% 45% 55% / 50% 46% 54% 50%;
   background: var(--paper);
-  box-shadow: 4px 4px 0 var(--frame);
+  box-shadow: 4px 5px 0 rgb(35 49 66 / 86%);
+  transform: rotate(5deg);
 }
 
 .robot-brow {
   position: absolute;
-  top: 8px;
+  top: 10px;
   display: none;
-  width: 14px;
+  width: 16px;
   height: 3px;
   background: var(--frame);
 }
 
 .robot-brow--left {
-  left: 8px;
+  left: 13px;
 }
 
 .robot-brow--right {
-  right: 8px;
+  right: 11px;
+}
+
+.robot-glasses {
+  position: absolute;
+  left: 7px;
+  top: 16px;
+  width: 54px;
+  height: 19px;
+}
+
+.robot-lens {
+  position: absolute;
+  top: 0;
+  height: 19px;
+  border: 4px solid var(--frame);
+  background: rgb(255 255 255 / 42%);
+}
+
+.robot-lens--left {
+  left: 0;
+  width: 21px;
+  border-radius: 11px 9px 10px 12px;
+}
+
+.robot-lens--right {
+  right: 0;
+  width: 29px;
+  border-radius: 11px 14px 13px 10px;
+}
+
+.robot-glasses-bridge {
+  position: absolute;
+  left: 20px;
+  top: 8px;
+  width: 9px;
+  height: 4px;
+  background: var(--frame);
+}
+
+.robot-glasses::before,
+.robot-glasses::after {
+  position: absolute;
+  top: 6px;
+  width: 11px;
+  height: 4px;
+  background: var(--frame);
+  content: "";
+}
+
+.robot-glasses::before {
+  left: -9px;
+  transform: rotate(8deg);
+}
+
+.robot-glasses::after {
+  right: -9px;
+  transform: rotate(14deg);
 }
 
 .robot-eye {
   position: absolute;
-  top: 13px;
-  width: 9px;
-  height: 9px;
-  border: 2px solid var(--frame);
-  background: var(--violet);
+  top: 23px;
+  z-index: 1;
+  width: 5px;
+  height: 5px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--frame);
   animation: buddy-blink 4s steps(1, end) infinite;
 }
 
 .robot-eye--left {
-  left: 12px;
+  left: 18px;
 }
 
 .robot-eye--right {
-  right: 12px;
+  right: 19px;
 }
 
 .robot-mouth {
   position: absolute;
-  left: 17px;
-  bottom: 9px;
-  width: 18px;
-  height: 3px;
-  background: var(--frame);
+  left: 24px;
+  bottom: 10px;
+  width: 23px;
+  height: 10px;
+  border-bottom: 4px solid var(--frame);
+  border-radius: 0 0 18px 18px;
+  background: transparent;
   transition:
     width 160ms ease,
     height 160ms ease,
@@ -924,9 +972,9 @@ pre {
 
 .robot-arm {
   position: absolute;
-  bottom: 12px;
+  bottom: 7px;
   width: 11px;
-  height: 31px;
+  height: 26px;
   border: 4px solid var(--frame);
   background: var(--paper);
   transform-origin: top center;
@@ -938,27 +986,27 @@ pre {
 }
 
 .robot-arm--left {
-  left: 3px;
+  left: 2px;
   transform: rotate(18deg);
 }
 
 .robot-arm--right {
-  right: 3px;
+  right: 2px;
   transform: rotate(-18deg);
 }
 
 .robot-body {
   position: absolute;
-  left: 14px;
+  left: 21px;
   bottom: 1px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;
-  width: 36px;
-  height: 21px;
+  width: 31px;
+  height: 18px;
   border: 4px solid var(--frame);
   background: var(--mint);
-  padding: 4px;
+  padding: 3px;
 }
 
 .robot-body span {
@@ -992,16 +1040,16 @@ pre {
 }
 
 .floating-buddy--explaining .robot-eye {
-  width: 11px;
-  height: 7px;
-  background: #7dd3fc;
+  width: 5px;
+  height: 5px;
+  background: var(--frame);
 }
 
 .floating-buddy--hinting .robot-eye {
-  top: 10px;
-  width: 14px;
-  height: 14px;
-  background: var(--sun);
+  top: 22px;
+  width: 6px;
+  height: 6px;
+  background: var(--quest);
 }
 
 .floating-buddy--hinting .robot-signal {
@@ -1032,10 +1080,10 @@ pre {
 }
 
 .floating-buddy--celebrating .robot-eye {
-  width: 12px;
-  height: 12px;
+  width: 7px;
+  height: 7px;
   background: var(--quest);
-  transform: rotate(45deg);
+  transform: none;
 }
 
 .floating-buddy--celebrating .robot-arm--left,
@@ -1054,21 +1102,22 @@ pre {
 }
 
 .floating-buddy--hinting .robot-mouth {
-  left: 14px;
-  bottom: 7px;
+  left: 24px;
+  bottom: 9px;
   width: 24px;
   height: 12px;
   border-bottom: 4px solid var(--frame);
+  border-radius: 0 0 18px 18px;
   background: transparent;
 }
 
 .floating-buddy--celebrating .robot-mouth {
-  left: 16px;
-  bottom: 6px;
-  width: 20px;
-  height: 8px;
-  border-bottom: 3px solid var(--frame);
-  border-radius: 0 0 12px 12px;
+  left: 22px;
+  bottom: 8px;
+  width: 28px;
+  height: 14px;
+  border-bottom: 4px solid var(--frame);
+  border-radius: 0 0 18px 18px;
   background: transparent;
 }
 
@@ -1089,17 +1138,19 @@ pre {
 }
 
 .floating-buddy--encouraging .robot-eye {
-  top: 15px;
-  height: 6px;
+  top: 24px;
+  height: 4px;
   background: var(--berry);
 }
 
 .floating-buddy--encouraging .robot-mouth {
-  left: 15px;
-  bottom: 7px;
+  left: 24px;
+  bottom: 10px;
   width: 22px;
   height: 10px;
   border-top: 4px solid var(--frame);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
   background: transparent;
 }
 
@@ -1111,11 +1162,12 @@ pre {
 
 .floating-buddy--explaining .robot-mouth,
 .floating-buddy--thinking .robot-mouth {
-  left: 22px;
-  bottom: 8px;
+  left: 32px;
+  bottom: 11px;
   width: 8px;
   height: 8px;
   border: 3px solid var(--frame);
+  border-radius: 50%;
   background: transparent;
 }
 

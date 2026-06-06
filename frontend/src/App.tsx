@@ -112,7 +112,7 @@ export function App() {
   const [codeScrollTop, setCodeScrollTop] = useState(0);
   const [completedQuestIds, setCompletedQuestIds] = useState<string[]>([]);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
-  const [isBuddyOpen, setIsBuddyOpen] = useState(false);
+  const [isBuddyOpen, setIsBuddyOpen] = useState(true);
   const [isQuestListOpen, setIsQuestListOpen] = useState(false);
   const [buddyAction, setBuddyAction] = useState<BuddyAction>(null);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
@@ -173,8 +173,8 @@ export function App() {
   })();
   const buddyCopy = {
     idle: {
-      title: 'Ready for a quest',
-      message: 'Write a tiny bit of Python, then run it to see the adventure log.',
+      title: "Hi, I'm Sebot",
+      message: "I'll be your guide. Write some Python, run the quest, and I'll help when you get stuck.",
     },
     thinking: {
       title: 'Checking the code',
@@ -596,18 +596,18 @@ export function App() {
         </section>
 
       </section>
-      <aside className={`floating-buddy floating-buddy--${buddyState}`} aria-label="Code Buddy helper">
+      <aside className={`floating-buddy floating-buddy--${buddyState}`} aria-label="Sebot helper">
         {isBuddyOpen && (
-          <div className="buddy-bubble" role="dialog" aria-label="Code Buddy message">
+          <div className="buddy-bubble" role="dialog" aria-label="Sebot message">
             <button
               type="button"
               className="buddy-close"
-              aria-label="Close Code Buddy message"
+              aria-label="Close Sebot message"
               onClick={() => setIsBuddyOpen(false)}
             >
               Close
             </button>
-            <span className="buddy-label">Code Buddy</span>
+            <span className="buddy-label">Sebot</span>
             {helperResponse ? (
               <div className="helper-response" aria-live="polite">
                 <strong>{helperResponse.title}</strong>
@@ -632,7 +632,7 @@ export function App() {
         <button
           type="button"
           className="robot-button"
-          aria-label={isBuddyOpen ? 'Hide Code Buddy tips' : 'Ask Code Buddy for help'}
+          aria-label={isBuddyOpen ? 'Hide Sebot tips' : 'Ask Sebot for help'}
           aria-expanded={isBuddyOpen}
           onClick={() => {
             setIsBuddyOpen((isOpen) => !isOpen);
@@ -648,6 +648,11 @@ export function App() {
             <span className="robot-head">
               <span className="robot-brow robot-brow--left" />
               <span className="robot-brow robot-brow--right" />
+              <span className="robot-glasses">
+                <span className="robot-lens robot-lens--left" />
+                <span className="robot-lens robot-lens--right" />
+                <span className="robot-glasses-bridge" />
+              </span>
               <span className="robot-eye robot-eye--left" />
               <span className="robot-eye robot-eye--right" />
               <span className="robot-mouth" />
@@ -659,7 +664,7 @@ export function App() {
               <span />
             </span>
           </span>
-          <span>Help</span>
+          <span>Sebot</span>
         </button>
       </aside>
     </main>
