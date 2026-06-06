@@ -13,7 +13,7 @@ export function explainStoryStep(storyCard: StoryCard | null): HelperResponse {
   if (!storyCard) {
     return {
       title: 'Pick a story step',
-      message: 'Click or hover a story card, then I can explain that part.',
+      message: 'Click a story card, then I can explain that part.',
     };
   }
 

@@ -507,6 +507,7 @@ textarea::selection {
   gap: 12px;
 }
 
+.story-step:hover,
 .story-step.is-selected {
   background: var(--sun-soft);
   box-shadow: 5px 5px 0 var(--sun);

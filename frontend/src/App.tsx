@@ -204,6 +204,14 @@ export function App() {
     setSelectedStoryCardId(card.id);
   }
 
+  function previewStoryCardLine(card: StoryCard) {
+    setHighlightedLine(card.lineNumber);
+  }
+
+  function restoreSelectedStoryCardLine() {
+    setHighlightedLine(selectedStoryCard?.lineNumber ?? null);
+  }
+
   function handleStoryCardKeyDown(event: KeyboardEvent<HTMLLIElement>, card: StoryCard) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -480,20 +488,15 @@ export function App() {
               {storyCards.map((card, index) => (
                 <li
                   key={card.id}
-                  className={`story-step story-step--${card.kind} ${
-                    card.lineNumber !== null && highlightedLine === card.lineNumber ? 'is-selected' : ''
-                  }`}
+                  className={`story-step story-step--${card.kind} ${selectedStoryCardId === card.id ? 'is-selected' : ''}`}
                   aria-label={`${card.title}. ${card.detail}`}
                   aria-selected={selectedStoryCardId === card.id}
-                  onBlur={() => setHighlightedLine(null)}
+                  onBlur={restoreSelectedStoryCardLine}
                   onClick={() => selectStoryCard(card)}
-                  onFocus={() => {
-                    setHighlightedLine(card.lineNumber);
-                    setSelectedStoryCardId(card.id);
-                  }}
+                  onFocus={() => previewStoryCardLine(card)}
                   onKeyDown={(event) => handleStoryCardKeyDown(event, card)}
-                  onMouseEnter={() => selectStoryCard(card)}
-                  onMouseLeave={() => setHighlightedLine(null)}
+                  onMouseEnter={() => previewStoryCardLine(card)}
+                  onMouseLeave={restoreSelectedStoryCardLine}
                   role="button"
                   tabIndex={0}
                 >
