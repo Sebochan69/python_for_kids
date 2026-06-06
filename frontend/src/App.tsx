@@ -622,7 +622,9 @@ export function App() {
               <span />
             </span>
             <span className="robot-spark robot-spark--left" />
+            <span className="robot-spark robot-spark--top" />
             <span className="robot-spark robot-spark--right" />
+            <span className="robot-spark robot-spark--low" />
           </span>
           <span>Help</span>
         </button>

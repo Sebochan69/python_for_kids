@@ -1010,20 +1010,53 @@ pre {
 .robot-spark {
   position: absolute;
   display: none;
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--frame);
+  width: 8px;
+  height: 8px;
   background: var(--sun);
 }
 
+.robot-spark::before,
+.robot-spark::after {
+  position: absolute;
+  background: inherit;
+  content: "";
+}
+
+.robot-spark::before {
+  left: -8px;
+  top: 0;
+  width: 24px;
+  height: 8px;
+}
+
+.robot-spark::after {
+  left: 0;
+  top: -8px;
+  width: 8px;
+  height: 24px;
+}
+
 .robot-spark--left {
-  left: -7px;
-  top: 20px;
+  left: -14px;
+  top: 8px;
+}
+
+.robot-spark--top {
+  left: 28px;
+  top: -18px;
+  background: #7dd3fc;
 }
 
 .robot-spark--right {
-  right: -9px;
-  top: 30px;
+  right: -16px;
+  top: 12px;
+  background: var(--mint);
+}
+
+.robot-spark--low {
+  right: -12px;
+  top: 48px;
+  background: #fca5a5;
 }
 
 .floating-buddy--thinking .robot-eye {
@@ -1111,17 +1144,17 @@ pre {
 
 .floating-buddy--celebrating .robot-arm--left,
 .floating-buddy--celebrating .robot-arm--right {
-  bottom: 25px;
+  bottom: 36px;
 }
 
 .floating-buddy--celebrating .robot-arm--left {
-  left: -4px;
-  transform: rotate(-54deg);
+  left: -12px;
+  transform: rotate(-132deg);
 }
 
 .floating-buddy--celebrating .robot-arm--right {
-  right: -4px;
-  transform: rotate(54deg);
+  right: -12px;
+  transform: rotate(132deg);
 }
 
 .floating-buddy--celebrating .robot-mouth,
