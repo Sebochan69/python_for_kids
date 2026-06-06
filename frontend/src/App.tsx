@@ -20,6 +20,7 @@ const PYTHON_TOKEN_PATTERN =
   /(#.*$|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:def|for|in|if|else|elif|return|True|False|None|range)\b|\b(?:print|len|str|int|float|list|dict|sum)\b|\b\d+(?:\.\d+)?\b|[()+\-*/=<>:,.])/g;
 const PYTHON_KEYWORDS = new Set(['def', 'for', 'in', 'if', 'else', 'elif', 'return', 'True', 'False', 'None', 'range']);
 const PYTHON_BUILTINS = new Set(['print', 'len', 'str', 'int', 'float', 'list', 'dict', 'sum']);
+type BuddyAction = 'explain' | 'hint' | null;
 
 function tokenClassName(token: string) {
   if (token.startsWith('#')) {
@@ -87,6 +88,7 @@ export function App() {
   const [completedQuestIds, setCompletedQuestIds] = useState<string[]>([]);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
   const [isBuddyOpen, setIsBuddyOpen] = useState(false);
+  const [buddyAction, setBuddyAction] = useState<BuddyAction>(null);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
   const selectedStoryCard = storyCards.find((card) => card.id === selectedStoryCardId) ?? null;
@@ -110,6 +112,14 @@ export function App() {
       return 'encouraging';
     }
 
+    if (buddyAction === 'hint') {
+      return 'hinting';
+    }
+
+    if (buddyAction === 'explain') {
+      return 'explaining';
+    }
+
     if (selectedStoryCard) {
       return 'explaining';
     }
@@ -127,7 +137,7 @@ export function App() {
     },
     celebrating: {
       title: 'Quest cleared',
-      message: 'Nice work. You earned a coding badge for this quest.',
+      message: 'Great job. You solved the quest and earned a coding badge.',
     },
     encouraging: {
       title: 'Let us fix it',
@@ -136,6 +146,10 @@ export function App() {
     explaining: {
       title: 'Step selected',
       message: 'Press Explain Step and I will talk about this part of Python.',
+    },
+    hinting: {
+      title: 'Hint mode',
+      message: 'I will give a clue, not the full answer. You still get to solve it.',
     },
   }[buddyState];
   const tryNextMessage = (() => {
@@ -173,6 +187,7 @@ export function App() {
     setCodeScrollTop(0);
     setSelectedStoryCardId(null);
     setIsBuddyOpen(false);
+    setBuddyAction(null);
     setHelperResponse(null);
   }
 
@@ -184,6 +199,7 @@ export function App() {
     setCodeScrollTop(0);
     setSelectedStoryCardId(null);
     setIsBuddyOpen(false);
+    setBuddyAction(null);
     setHelperResponse(null);
   }
 
@@ -252,11 +268,13 @@ export function App() {
 
   function handleExplainStep() {
     setHelperResponse(explainStoryStep(selectedStoryCard));
+    setBuddyAction('explain');
     setIsBuddyOpen(true);
   }
 
   function handleHintRequest() {
     setHelperResponse(giveMissionHint(activeLesson, validationResult));
+    setBuddyAction('hint');
     setIsBuddyOpen(true);
   }
 
@@ -266,6 +284,7 @@ export function App() {
     setHighlightedLine(null);
     setSelectedStoryCardId(null);
     setIsBuddyOpen(true);
+    setBuddyAction(null);
     setHelperResponse(null);
 
     try {
@@ -582,6 +601,7 @@ export function App() {
             setIsBuddyOpen((isOpen) => !isOpen);
             if (isBuddyOpen) {
               setHelperResponse(null);
+              setBuddyAction(null);
             }
           }}
         >

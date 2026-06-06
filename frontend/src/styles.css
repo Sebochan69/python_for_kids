@@ -925,6 +925,10 @@ pre {
   width: 18px;
   height: 3px;
   background: var(--frame);
+  transition:
+    width 160ms ease,
+    height 160ms ease,
+    transform 160ms ease;
 }
 
 .robot-body {
@@ -945,17 +949,69 @@ pre {
   background: var(--quest);
 }
 
-.floating-buddy--thinking .robot-eye,
-.floating-buddy--explaining .robot-eye {
+.floating-buddy--thinking .robot-eye {
   background: #7dd3fc;
+}
+
+.floating-buddy--explaining .robot-eye {
+  width: 11px;
+  height: 7px;
+  background: #7dd3fc;
+}
+
+.floating-buddy--hinting .robot-eye {
+  width: 8px;
+  height: 12px;
+  background: var(--sun);
 }
 
 .floating-buddy--celebrating .robot-head {
   background: var(--sun-soft);
 }
 
+.floating-buddy--celebrating .robot-guide {
+  animation: buddy-celebrate 0.9s ease-in-out infinite;
+}
+
+.floating-buddy--celebrating .robot-eye {
+  width: 12px;
+  height: 12px;
+  background: var(--quest);
+  transform: rotate(45deg);
+}
+
+.floating-buddy--celebrating .robot-mouth,
+.floating-buddy--hinting .robot-mouth {
+  left: 14px;
+  bottom: 7px;
+  width: 24px;
+  height: 12px;
+  border-bottom: 4px solid var(--frame);
+  background: transparent;
+}
+
 .floating-buddy--encouraging .robot-head {
   background: #fff1f2;
+}
+
+.floating-buddy--encouraging .robot-eye {
+  background: var(--berry);
+}
+
+.floating-buddy--encouraging .robot-mouth {
+  left: 19px;
+  width: 14px;
+  transform: rotate(-8deg);
+}
+
+.floating-buddy--explaining .robot-mouth,
+.floating-buddy--thinking .robot-mouth {
+  left: 22px;
+  bottom: 8px;
+  width: 8px;
+  height: 8px;
+  border: 3px solid var(--frame);
+  background: transparent;
 }
 
 @keyframes buddy-bounce {
@@ -966,6 +1022,17 @@ pre {
 
   50% {
     transform: translateY(-4px);
+  }
+}
+
+@keyframes buddy-celebrate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(3deg);
   }
 }
 
@@ -1108,6 +1175,7 @@ pre {
 
 @media (prefers-reduced-motion: reduce) {
   .robot-guide,
+  .floating-buddy--celebrating .robot-guide,
   .robot-antenna::before,
   .robot-eye {
     animation: none;
