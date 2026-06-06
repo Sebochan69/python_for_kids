@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { runCode } from './api';
 import { explainStoryStep, giveMissionHint, type HelperResponse } from './helper';
 import { LESSONS } from './lessons';
@@ -104,6 +104,7 @@ export function App() {
   const nextLesson = LESSONS[activeLessonIndex + 1];
   const [code, setCode] = useState(activeLesson.starter_code);
   const codeEditorRef = useRef<HTMLTextAreaElement | null>(null);
+  const questListRef = useRef<HTMLDivElement | null>(null);
   const [runResult, setRunResult] = useState<RunCodeResponse | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
@@ -120,6 +121,29 @@ export function App() {
   const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
   const activeQuestNumber = activeLessonIndex + 1;
+
+  useEffect(() => {
+    if (!isQuestListOpen) {
+      return;
+    }
+
+    function closeQuestListOnOutsideClick(event: MouseEvent) {
+      const target = event.target;
+
+      if (!(target instanceof Node) || questListRef.current?.contains(target)) {
+        return;
+      }
+
+      setIsQuestListOpen(false);
+    }
+
+    document.addEventListener('mousedown', closeQuestListOnOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', closeQuestListOnOutsideClick);
+    };
+  }, [isQuestListOpen]);
+
   const buddyState = (() => {
     if (isRunning) {
       return 'thinking';
@@ -342,7 +366,7 @@ export function App() {
         Skip to code
       </a>
       <header className="top-bar">
-        <div>
+        <div ref={questListRef}>
           <h1>Python for Kids</h1>
           <p className="app-subtitle">A playful coding lab for classroom Python foundations.</p>
           <nav className="quest-nav" aria-label="Quest navigation">
