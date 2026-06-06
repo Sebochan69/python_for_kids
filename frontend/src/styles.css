@@ -1157,13 +1157,24 @@ pre {
   transform: rotate(132deg);
 }
 
-.floating-buddy--celebrating .robot-mouth,
 .floating-buddy--hinting .robot-mouth {
   left: 14px;
   bottom: 7px;
   width: 24px;
   height: 12px;
   border-bottom: 4px solid var(--frame);
+  background: transparent;
+}
+
+.floating-buddy--celebrating .robot-mouth {
+  left: 13px;
+  bottom: 8px;
+  width: 26px;
+  height: 13px;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid var(--frame);
+  border-left: 4px solid transparent;
+  border-radius: 0 0 18px 18px;
   background: transparent;
 }
 
