@@ -86,6 +86,7 @@ export function App() {
   const [codeScrollTop, setCodeScrollTop] = useState(0);
   const [completedQuestIds, setCompletedQuestIds] = useState<string[]>([]);
   const [selectedStoryCardId, setSelectedStoryCardId] = useState<string | null>(null);
+  const [isBuddyOpen, setIsBuddyOpen] = useState(false);
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
   const selectedStoryCard = storyCards.find((card) => card.id === selectedStoryCardId) ?? null;
@@ -171,6 +172,7 @@ export function App() {
     setHighlightedLine(null);
     setCodeScrollTop(0);
     setSelectedStoryCardId(null);
+    setIsBuddyOpen(false);
     setHelperResponse(null);
   }
 
@@ -181,6 +183,7 @@ export function App() {
     setHighlightedLine(null);
     setCodeScrollTop(0);
     setSelectedStoryCardId(null);
+    setIsBuddyOpen(false);
     setHelperResponse(null);
   }
 
@@ -247,11 +250,22 @@ export function App() {
     setCodeAndCursor(nextCode, nextCursor);
   }
 
+  function handleExplainStep() {
+    setHelperResponse(explainStoryStep(selectedStoryCard));
+    setIsBuddyOpen(true);
+  }
+
+  function handleHintRequest() {
+    setHelperResponse(giveMissionHint(activeLesson, validationResult));
+    setIsBuddyOpen(true);
+  }
+
   async function handleRunMission() {
     setIsRunning(true);
     setRunError(null);
     setHighlightedLine(null);
     setSelectedStoryCardId(null);
+    setIsBuddyOpen(true);
     setHelperResponse(null);
 
     try {
@@ -475,43 +489,6 @@ export function App() {
               Next Quest: {nextLesson.title}
             </button>
           )}
-          <div className="helper-card" aria-label="Mission helper">
-            <div className={`code-buddy code-buddy--${buddyState}`} aria-live="polite">
-              <div className="robot-guide" aria-hidden="true">
-                <span className="robot-antenna" />
-                <span className="robot-head">
-                  <span className="robot-eye robot-eye--left" />
-                  <span className="robot-eye robot-eye--right" />
-                  <span className="robot-mouth" />
-                </span>
-                <span className="robot-body">
-                  <span />
-                  <span />
-                </span>
-              </div>
-              <div>
-                <span className="buddy-label">Code Buddy</span>
-                <strong>{buddyCopy.title}</strong>
-                <p>{buddyCopy.message}</p>
-              </div>
-            </div>
-            <div className="helper-actions">
-              <button type="button" onClick={() => setHelperResponse(explainStoryStep(selectedStoryCard))}>
-                Explain Step
-              </button>
-              <button type="button" onClick={() => setHelperResponse(giveMissionHint(activeLesson, validationResult))}>
-                Hint Please
-              </button>
-            </div>
-            {helperResponse ? (
-              <div className="helper-response" aria-live="polite">
-                <strong>{helperResponse.title}</strong>
-                <p>{helperResponse.message}</p>
-              </div>
-            ) : (
-              <p className="empty-message">Need help? Try a hint or pick a story step.</p>
-            )}
-          </div>
         </section>
 
         <section className="output-card" aria-labelledby="output-title">
@@ -563,6 +540,66 @@ export function App() {
           </div>
         </section>
       </section>
+      <aside className={`floating-buddy floating-buddy--${buddyState}`} aria-label="Code Buddy helper">
+        {isBuddyOpen && (
+          <div className="buddy-bubble" role="dialog" aria-label="Code Buddy message">
+            <button
+              type="button"
+              className="buddy-close"
+              aria-label="Close Code Buddy message"
+              onClick={() => setIsBuddyOpen(false)}
+            >
+              Close
+            </button>
+            <span className="buddy-label">Code Buddy</span>
+            {helperResponse ? (
+              <div className="helper-response" aria-live="polite">
+                <strong>{helperResponse.title}</strong>
+                <p>{helperResponse.message}</p>
+              </div>
+            ) : (
+              <div className="buddy-context" aria-live="polite">
+                <strong>{buddyCopy.title}</strong>
+                <p>{buddyCopy.message}</p>
+              </div>
+            )}
+            <div className="helper-actions">
+              <button type="button" onClick={handleExplainStep}>
+                Explain Step
+              </button>
+              <button type="button" onClick={handleHintRequest}>
+                Hint Please
+              </button>
+            </div>
+          </div>
+        )}
+        <button
+          type="button"
+          className="robot-button"
+          aria-label={isBuddyOpen ? 'Hide Code Buddy tips' : 'Ask Code Buddy for help'}
+          aria-expanded={isBuddyOpen}
+          onClick={() => {
+            setIsBuddyOpen((isOpen) => !isOpen);
+            if (isBuddyOpen) {
+              setHelperResponse(null);
+            }
+          }}
+        >
+          <span className="robot-guide" aria-hidden="true">
+            <span className="robot-antenna" />
+            <span className="robot-head">
+              <span className="robot-eye robot-eye--left" />
+              <span className="robot-eye robot-eye--right" />
+              <span className="robot-mouth" />
+            </span>
+            <span className="robot-body">
+              <span />
+              <span />
+            </span>
+          </span>
+          <span>Help</span>
+        </button>
+      </aside>
     </main>
   );
 }
