@@ -317,15 +317,8 @@ export function App() {
       </a>
       <header className="top-bar">
         <div>
-          <p className="eyebrow">Classroom Coding Lab</p>
           <h1>Python for Kids</h1>
           <p className="app-subtitle">A playful coding lab for classroom Python foundations.</p>
-          <div className="adventure-trail" aria-label="Mission path">
-            <span>Pick</span>
-            <span>Code</span>
-            <span>Run</span>
-            <span>Learn</span>
-          </div>
           <nav className="quest-map" aria-label="Quest map">
             <span>
               Quest {activeQuestNumber} of {LESSONS.length}
