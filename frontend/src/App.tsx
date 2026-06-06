@@ -92,9 +92,6 @@ export function App() {
   const [helperResponse, setHelperResponse] = useState<HelperResponse | null>(null);
   const storyCards = runResult ? buildStoryCards(runResult.events) : [];
   const selectedStoryCard = storyCards.find((card) => card.id === selectedStoryCardId) ?? null;
-  const selectedStoryCardIndex = selectedStoryCard
-    ? storyCards.findIndex((card) => card.id === selectedStoryCard.id)
-    : -1;
   const validationResult = validateMission(activeLesson, runResult, code);
   const codeLines = code.split('\n');
   const activeQuestNumber = activeLessonIndex + 1;
@@ -485,20 +482,6 @@ export function App() {
 
         <section className="story-card" aria-labelledby="story-title">
           <h2 id="story-title">Adventure Log</h2>
-          <div className="selected-step-note" aria-live="polite">
-            {selectedStoryCard ? (
-              <>
-                <span>Looking at Step {selectedStoryCardIndex + 1}</span>
-                <strong>{selectedStoryCard.title}</strong>
-                {selectedStoryCard.lineNumber && <em>This step uses code line {selectedStoryCard.lineNumber}.</em>}
-              </>
-            ) : (
-              <>
-                <span>Pick a step</span>
-                <strong>Hover, tap, or focus a story step to see its code line.</strong>
-              </>
-            )}
-          </div>
           {runError && (
             <p className="error-message" role="alert">
               {runError}
