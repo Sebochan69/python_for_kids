@@ -1,0 +1,22 @@
+{
+  "id": "checkpoint-mini-party",
+  "title": "Checkpoint: Mini Party",
+  "summary": "Mix lists, loops, and a function machine.",
+  "difficulty": "easy",
+  "topic": "checkpoint",
+  "age_range": "8-10",
+  "mission_prompt": "Build a greeting machine, then use it for every friend in a list.",
+  "starter_code": "def greet(name):\n    return \"Hi \" + name\n\nfriends = [\"Ana\", \"Ben\"]\nfor friend in friends:\n    print(greet(friend))",
+  "expected_stdout": "Hi Ana\nHi Ben\n",
+  "required_concepts": ["function_definition", "function_call", "list_usage", "for_loop", "string_join", "print_statement"],
+  "learning_goals": [
+    "Practice building a function machine.",
+    "Practice using a list.",
+    "Practice using a loop to call the machine."
+  ],
+  "hints": [
+    "The function returns one greeting.",
+    "The loop uses the function for one friend at a time."
+  ],
+  "adult_guidance": "Use this as the final mixed practice for the first lesson pack."
+}

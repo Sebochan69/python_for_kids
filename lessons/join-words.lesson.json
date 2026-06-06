@@ -1,0 +1,22 @@
+{
+  "id": "join-words",
+  "title": "Join Words",
+  "summary": "Join text together with a name.",
+  "difficulty": "starter",
+  "topic": "strings",
+  "age_range": "8-10",
+  "mission_prompt": "Join Hello with a name, then print the message.",
+  "starter_code": "name = \"Mika\"\nmessage = \"Hello \" + name\nprint(message)",
+  "expected_stdout": "Hello Mika\n",
+  "required_concepts": ["variable_assignment", "string_literal", "string_join", "print_statement"],
+  "learning_goals": [
+    "Use quotes for words.",
+    "Use + to join words together.",
+    "Print a joined message."
+  ],
+  "hints": [
+    "The space after Hello matters.",
+    "+ can join words when the pieces are text."
+  ],
+  "adult_guidance": "Compare adding numbers with joining words, but avoid calling both the same thing too early."
+}

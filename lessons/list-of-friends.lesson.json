@@ -1,0 +1,22 @@
+{
+  "id": "list-of-friends",
+  "title": "List of Friends",
+  "summary": "Use a list to hold more than one name.",
+  "difficulty": "easy",
+  "topic": "lists",
+  "age_range": "8-10",
+  "mission_prompt": "Make a list of friends, then print each friend.",
+  "starter_code": "friends = [\"Ana\", \"Ben\"]\nfor friend in friends:\n    print(friend)",
+  "expected_stdout": "Ana\nBen\n",
+  "required_concepts": ["variable_assignment", "list_usage", "for_loop", "print_statement"],
+  "learning_goals": [
+    "Use a list to keep many things together.",
+    "Use a for loop to visit each list item.",
+    "Print each item in the list."
+  ],
+  "hints": [
+    "Lists use square brackets.",
+    "The loop gives you one friend at a time."
+  ],
+  "adult_guidance": "Describe the list as a row of labeled cards the loop visits one by one."
+}

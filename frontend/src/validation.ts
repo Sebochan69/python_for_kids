@@ -4,11 +4,19 @@ const CONCEPT_LABELS: Record<string, string> = {
   print_statement: 'Python Speaker',
   variable_assignment: 'Memory Box Builder',
   variable_update: 'Memory Box Changer',
+  string_literal: 'Word Keeper',
+  number_literal: 'Number Keeper',
+  math_operation: 'Number Math',
+  string_join: 'Word Joiner',
+  comparison_operator: 'Comparator',
   for_loop: 'Repeater Ranger',
   if_statement: 'Question Checker',
+  list_usage: 'List Builder',
   function_definition: 'Machine Builder',
   function_call: 'Machine User',
 };
+
+const BUILTIN_CALLS = new Set(['print', 'range', 'len', 'str', 'int', 'float', 'list', 'dict', 'sum']);
 
 function normalizeOutput(output: string) {
   return output.replace(/\r\n/g, '\n').trim();
@@ -33,6 +41,26 @@ export function detectConcepts(code: string) {
     found.add('variable_update');
   }
 
+  if (/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/.test(code)) {
+    found.add('string_literal');
+  }
+
+  if (/\b\d+(?:\.\d+)?\b/.test(code)) {
+    found.add('number_literal');
+  }
+
+  if (/[A-Za-z0-9_)\]]\s*[-+*/]\s*[A-Za-z0-9_("'[]/.test(code)) {
+    found.add('math_operation');
+  }
+
+  if (/(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')\s*\+\s*[A-Za-z_][A-Za-z0-9_]*|[A-Za-z_][A-Za-z0-9_]*\s*\+\s*(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/.test(code)) {
+    found.add('string_join');
+  }
+
+  if (/^\s*if\s+.+(?:==|!=|>=|<=|>|<).+:/m.test(code)) {
+    found.add('comparison_operator');
+  }
+
   if (/^\s*for\s+[A-Za-z_][A-Za-z0-9_]*\s+in\s+/m.test(code)) {
     found.add('for_loop');
   }
@@ -41,11 +69,22 @@ export function detectConcepts(code: string) {
     found.add('if_statement');
   }
 
+  if (/\[[\s\S]*?\]/.test(code)) {
+    found.add('list_usage');
+  }
+
   if (/^\s*def\s+[A-Za-z_][A-Za-z0-9_]*\s*\(/m.test(code)) {
     found.add('function_definition');
   }
 
-  if (/^\s*(?!def\b|if\b|for\b|print\b)[A-Za-z_][A-Za-z0-9_]*\s*=?.*?\b[A-Za-z_][A-Za-z0-9_]*\s*\(/m.test(code)) {
+  if (
+    code
+      .split('\n')
+      .some((line) =>
+        !/^\s*def\b/.test(line)
+        && [...line.matchAll(/\b([A-Za-z_][A-Za-z0-9_]*)\s*\(/g)].some((match) => !BUILTIN_CALLS.has(match[1])),
+      )
+  ) {
     found.add('function_call');
   }
 

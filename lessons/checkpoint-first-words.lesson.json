@@ -1,0 +1,22 @@
+{
+  "id": "checkpoint-first-words",
+  "title": "Checkpoint: First Words",
+  "summary": "Mix printing, memory boxes, and joined words.",
+  "difficulty": "easy",
+  "topic": "checkpoint",
+  "age_range": "8-10",
+  "mission_prompt": "Save a name, join it with Hello, then print the greeting.",
+  "starter_code": "name = \"Mika\"\ngreeting = \"Hello \" + name\nprint(greeting)",
+  "expected_stdout": "Hello Mika\n",
+  "required_concepts": ["variable_assignment", "string_literal", "string_join", "print_statement"],
+  "learning_goals": [
+    "Practice memory boxes.",
+    "Practice joining text.",
+    "Print the final message."
+  ],
+  "hints": [
+    "Use one memory box for the name.",
+    "Use another memory box for the joined greeting."
+  ],
+  "adult_guidance": "Treat this as a friendly checkpoint, not a timed exam."
+}

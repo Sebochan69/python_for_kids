@@ -1,0 +1,22 @@
+{
+  "id": "add-numbers",
+  "title": "Add Numbers",
+  "summary": "Use Python as a tiny calculator.",
+  "difficulty": "starter",
+  "topic": "operations",
+  "age_range": "8-10",
+  "mission_prompt": "Add two numbers, save the answer, then print it.",
+  "starter_code": "stars = 2 + 3\nprint(stars)",
+  "expected_stdout": "5\n",
+  "required_concepts": ["variable_assignment", "math_operation", "print_statement"],
+  "learning_goals": [
+    "Use + to add numbers.",
+    "Save a math answer in a memory box.",
+    "Print the answer."
+  ],
+  "hints": [
+    "2 + 3 makes 5.",
+    "Put the math answer in a memory box before printing it."
+  ],
+  "adult_guidance": "Ask the child to predict the answer before running the code."
+}

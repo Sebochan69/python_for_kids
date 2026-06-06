@@ -1,0 +1,22 @@
+{
+  "id": "checkpoint-number-adventure",
+  "title": "Checkpoint: Number Adventure",
+  "summary": "Mix numbers, updates, and a choice.",
+  "difficulty": "easy",
+  "topic": "checkpoint",
+  "age_range": "8-10",
+  "mission_prompt": "Start score at 1, add 2, and print the score if it is bigger than 2.",
+  "starter_code": "score = 1\nscore = score + 2\nif score > 2:\n    print(score)",
+  "expected_stdout": "3\n",
+  "required_concepts": ["variable_assignment", "variable_update", "comparison_operator", "if_statement", "print_statement"],
+  "learning_goals": [
+    "Practice changing a number.",
+    "Practice comparing a number.",
+    "Print only when the if question is true."
+  ],
+  "hints": [
+    "score = score + 2 changes the old score.",
+    "The if line asks whether the score is bigger than 2."
+  ],
+  "adult_guidance": "Ask the child to track the score with fingers: 1, then 3."
+}

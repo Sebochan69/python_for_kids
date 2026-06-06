@@ -1,0 +1,22 @@
+{
+  "id": "compare-scores",
+  "title": "Compare Scores",
+  "summary": "Ask Python if a number is big enough.",
+  "difficulty": "easy",
+  "topic": "comparisons",
+  "age_range": "8-10",
+  "mission_prompt": "Check whether the score is bigger than 3, then print You win!",
+  "starter_code": "score = 5\nif score > 3:\n    print(\"You win!\")",
+  "expected_stdout": "You win!\n",
+  "required_concepts": ["variable_assignment", "comparison_operator", "if_statement", "print_statement"],
+  "learning_goals": [
+    "Use > to compare numbers.",
+    "Use if to ask a question.",
+    "Print only when the question is true."
+  ],
+  "hints": [
+    "> means bigger than.",
+    "The print line should be indented under the if."
+  ],
+  "adult_guidance": "Use real objects or fingers to show bigger than before naming the symbol."
+}

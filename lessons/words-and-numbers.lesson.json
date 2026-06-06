@@ -1,0 +1,22 @@
+{
+  "id": "words-and-numbers",
+  "title": "Words and Numbers",
+  "summary": "See how Python remembers words and numbers.",
+  "difficulty": "starter",
+  "topic": "data types",
+  "age_range": "8-10",
+  "mission_prompt": "Put a word and a number in memory boxes, then print both.",
+  "starter_code": "pet = \"cat\"\ncount = 3\nprint(pet)\nprint(count)",
+  "expected_stdout": "cat\n3\n",
+  "required_concepts": ["variable_assignment", "string_literal", "number_literal", "print_statement"],
+  "learning_goals": [
+    "Notice that words use quotes.",
+    "Notice that numbers do not need quotes.",
+    "Print both kinds of memory boxes."
+  ],
+  "hints": [
+    "Words stay inside quotes.",
+    "Numbers can be used without quotes."
+  ],
+  "adult_guidance": "Use simple language first: words have quote marks, numbers can do math."
+}
