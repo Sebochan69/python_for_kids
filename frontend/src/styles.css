@@ -954,7 +954,7 @@ pre {
 .robot-eye {
   position: absolute;
   top: 25px;
-  z-index: 3;
+  z-index: 4;
   width: 5px;
   height: 5px;
   border: 0;
@@ -964,11 +964,11 @@ pre {
 }
 
 .robot-eye--left {
-  left: 19px;
+  left: 18px;
 }
 
 .robot-eye--right {
-  right: 22px;
+  right: 16px;
 }
 
 .robot-mouth {
