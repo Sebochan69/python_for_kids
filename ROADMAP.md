@@ -1,64 +1,60 @@
 # Roadmap
 
-## Milestone 0: Foundation
+## V1: Official Release Candidate
 
-- Product definition
-- Safety principles
-- Project docs and governance
-- Initial lesson plan
+V1 is the current stable milestone.
 
-## Milestone 1: Core Kid Runtime
+Included:
 
 - Vite + React + TypeScript frontend
 - FastAPI backend
-- Controlled one-file Python execution
+- controlled one-file Python execution
 - stdout and error capture
 - basic timeout protection
-- no persistence
+- runtime events for child-facing story cards
+- one-file Code Box with line numbers, tab indentation, and syntax coloring
+- Python Printed output section
+- Adventure Log with persistent step selection and code-line highlighting
+- compact Previous / Quest List / Next navigation
+- 14-quest Python foundations lesson pack
+- 3 checkpoint quests that mix earlier concepts
+- expected-output and required-concept validation
+- Sebot guide with local deterministic hints and explanations
+- safety, accessibility, smoke-test, demo, and release documentation
 
-## Milestone 2: Story Flow
+## V1 Boundaries
 
-- Convert runtime events into story cards
-- Highlight related code lines
-- Explain simple steps:
-  - Python says something
-  - Python remembers a value
-  - Python changes a value
-  - Python repeats
-  - Python asks a question
-  - Python uses a machine
-
-## Milestone 3: Lessons
-
-- 5-6 starter missions
-- mission picker
-- starter code injection
-- reset mission
-- next mission flow
-- gentle validation
-
-## Milestone 4: Helper
-
-- local deterministic hints
-- local deterministic explanations
 - no free-form child AI chat
-- no full solution generation
+- no accounts or persistence
+- no public sharing
+- no package installation
+- no multi-file projects
+- no production sandbox claim
+- no teacher dashboard yet
 
-## Future Work
+## V1.1 Candidates
 
-- fill-in-the-blank editor
-- block/snippet editor
-- teacher/parent mode
-- progress persistence with safety controls
-- richer trace events for loops and functions
-- accessibility and reading-level improvements
-- optional AI mentor after safety review
+- refine Sebot visual polish and expressions
+- add a teacher-facing quick guide
+- improve quest grouping copy
+- add more checkpoint feedback copy
+- strengthen runtime guardrail tests
+- improve screen-reader walkthrough support
+
+## V2 Direction
+
+- guided editor modes for younger learners
+- fill-in-the-blank and block/snippet editing
+- richer loop and function storytelling
+- parent/teacher controls
+- safe progress persistence
+- optional AI mentor only after safety review
 
 ## Not Planned Early
 
 - real package installs
 - multi-file projects
 - public sharing
-- accounts
+- child accounts without guardian/teacher controls
 - production debugging
 - multi-language support

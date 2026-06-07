@@ -58,7 +58,7 @@ Expected story-level events:
 4. Python reads line 2.
 5. Python changes `x`.
 6. Python reads line 3.
-7. Python says `2`.
+7. Python prints `2`.
 8. Python stops the mission.
 
 The frontend may hide plain `line_executed` events in the child-facing story
@@ -66,7 +66,8 @@ view so children focus on the visible changes: memory boxes, changed values,
 printed output, errors, and mission start/finish.
 
 Story cards that have a `line_number` can highlight the matching line in the
-frontend code map when a child hovers or focuses the card.
+Code Box. Hover previews a line, while click selects the step for Sebot
+explanations.
 
 ## Current Boundaries
 

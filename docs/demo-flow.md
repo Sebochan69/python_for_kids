@@ -1,6 +1,6 @@
 # Demo Flow
 
-This flow presents the current Python for Kids prototype in about five minutes.
+This flow presents Python for Kids V1 in about five minutes.
 
 ## Setup
 
@@ -29,21 +29,22 @@ It demonstrates:
 - memory box creation
 - memory box update
 - printed output
-- runtime story cards
-- code line highlighting
+- Adventure Log story cards
+- code-line highlighting
 - mission validation
-- skill badges
-- local helper hints
+- Sebot explanations and hints
 
 ## Presenter Steps
 
-1. Show the mission picker.
+1. Show the header.
 
-   Say: "Each mission teaches one small Python idea."
+   Say: "This is Python for Kids V1. Students move through quests, but they can
+   open Quest List if they need to review an older lesson."
 
-2. Choose `Change a Score`.
+2. Open `Quest List`, then choose `Change a Score`.
 
-   Expected: the mission card and starter code update.
+   Expected: the popover opens without moving the whole layout, and the mission
+   card plus starter code update.
 
 3. Point at the starter code:
 
@@ -53,44 +54,59 @@ It demonstrates:
    print(score)
    ```
 
-   Say: "Python remembers a score, changes it, then says it."
+   Say: "Python remembers a score, changes it, then prints it."
 
-4. Click `Run Mission`.
+4. Click `Run Quest`.
 
-   Expected: `Python Says` shows `2`.
+   Expected: `Python Printed` shows `2`.
 
-5. Show the story cards.
+5. Show the Adventure Log.
 
    Expected examples:
 
-   - Python remembers `score`
-   - Python changes `score`
-   - Python says something
+   - Python starts the quest.
+   - Python remembers `score`.
+   - Python changes `score`.
+   - Python prints something.
 
-6. Hover or keyboard-focus a story card.
+6. Hover a story card.
 
-   Expected: the matching line lights up in the Code Map.
+   Expected: the matching code line lights temporarily.
 
-7. Show Mission Check.
+7. Click a story card.
 
-   Expected: `Mission complete`, expected output, actual output, and earned
-   badges.
+   Expected: the story card stays selected, and its code line remains visible.
 
 8. Click `Explain Step`.
 
-   Expected: local deterministic explanation appears. No AI chat is used.
+   Expected: Sebot gives a local deterministic explanation for the selected
+   step. No AI chat is used.
 
 9. Click `Hint Please`.
 
-   Expected: local deterministic hint appears.
+   Expected: Sebot gives local deterministic guidance.
 
-10. Click `Next Mission`.
+10. Show Mission Check.
 
-    Expected: the next mission loads.
+    Expected: `Mission complete`, expected output, and actual output are visible.
+
+11. Click `Next Quest`.
+
+    Expected: the next quest loads.
+
+## Checkpoint Demo Option
+
+Use `Checkpoint: Number Adventure`.
+
+Say: "Checkpoints mix ideas students have already learned. They can use Quest
+List to jump back to earlier lessons if they need a review."
+
+Expected: the checkpoint uses variables, updates, comparison, `if`, and
+`print()` without introducing a brand-new concept.
 
 ## Quick Wrong Answer Demo
 
-Change the code to:
+Change the `Change a Score` code to:
 
 ```python
 score = 1
@@ -101,15 +117,16 @@ Run again.
 
 Expected:
 
-- Python says `1`.
+- `Python Printed` shows `1`.
 - Mission Check shows `Almost there` or `Try again`.
-- Skill badges help show which concepts were used or are still waiting.
+- Sebot can give a gentle hint.
 
 ## Current Boundaries To Say Out Loud
 
-- This is a prototype for ages 8-10.
-- It runs tiny one-file Python missions only.
+- This is V1 for ages 8-10.
+- It runs tiny one-file Python quests only.
 - Imports, input, package installs, filesystem persistence, and network access
-  are blocked or not available.
-- The helper is local and deterministic, not free-form AI chat.
-- There are no accounts, progress tracking, or public sharing yet.
+  are blocked or unavailable.
+- Sebot is local and deterministic, not free-form AI chat.
+- There are no accounts, progress tracking, public sharing, or teacher
+  dashboards yet.

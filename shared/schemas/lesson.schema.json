@@ -55,8 +55,14 @@
           "print_statement",
           "variable_assignment",
           "variable_update",
+          "string_literal",
+          "number_literal",
+          "math_operation",
+          "string_join",
+          "comparison_operator",
           "for_loop",
           "if_statement",
+          "list_usage",
           "function_definition",
           "function_call"
         ]

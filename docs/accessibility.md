@@ -8,10 +8,12 @@ start, even while the UI is still small.
 - Skip link to jump to the code area.
 - Visible focus styles for buttons, selects, textareas, and story cards.
 - Story cards can be selected with mouse, focus, Enter, or Space.
+- Quest List opens as a popover and closes on outside click.
 - Running, output, validation, helper, and error areas use status or alert
   semantics where useful.
 - Text uses simple labels and avoids raw trace JSON in the child-facing view.
 - Forced-colors mode keeps card boundaries visible.
+- Sebot helper text is local, short, and available without relying on audio.
 
 ## Current Boundaries
 

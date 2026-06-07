@@ -1,44 +1,56 @@
 # Python for Kids
 
-Python for Kids is a kid-friendly coding learning app for children under 10.
-It helps learners write tiny Python programs, run them, and understand what
-Python did through simple story-style steps.
+Python for Kids is a V1 kid-friendly Python learning app for children ages
+8-10. Learners write small Python programs, run them, see what Python printed,
+and read simple story-style steps that explain what happened.
 
 The project borrows lessons learned from PROJECT OOH-AHH, but it is a separate
 product with a simpler UI, safer learning boundaries, and child-first language.
 
-## First Milestone
+## V1 Scope
 
-The first milestone focuses on ages 8-10 and teaches:
+V1 is officially focused on classroom-ready Python foundations:
 
-- `print()` as making Python say something
-- variables as memory boxes
-- updates as changing a memory box
-- loops as repeaters
-- conditions as questions
-- functions as small machines
+- one-file editable Python missions
+- controlled FastAPI runtime endpoint for tiny snippets
+- stdout, stderr, error, timeout, and event capture
+- story cards for memory boxes, changes, printed output, errors, start, and finish
+- code-line highlighting from story cards
+- expected-output and required-concept validation
+- grouped Quest List navigation with previous/next flow
+- 14-quest lesson pack with 3 checkpoints
+- Sebot, a local deterministic guide for explanations and hints
+- safety and accessibility notes for child-facing use
 
-## Product Shape
+## Lesson Pack
 
-The first app should include:
+The V1 quest order is:
 
-- mission picker
-- friendly mission card
-- one-file Python editor
-- Run Mission button
-- story-style runtime steps
-- simple output panel
-- gentle mission validation
-- local hints only
-- next mission flow
+1. Say Hello
+2. Remember a Name
+3. Words and Numbers
+4. Add Numbers
+5. Join Words
+6. Change a Score
+7. Compare Scores
+8. Choose a Game
+9. Repeat a Cheer
+10. List of Friends
+11. Function Machine
+12. Checkpoint: First Words
+13. Checkpoint: Number Adventure
+14. Checkpoint: Mini Party
 
-## Non-Goals For The First Milestone
+The checkpoints mix only concepts introduced earlier in the path.
+
+## Non-Goals For V1
 
 - no free-form child AI chat
 - no accounts or progress persistence
 - no public sharing
 - no real package installation
 - no Docker or Kubernetes
+- no multi-file projects
 - no multi-language support
 - no adult developer debug UI
 - no raw runtime JSON in child-facing views
@@ -57,12 +69,12 @@ The first app should include:
 ```text
 frontend/   # kid-friendly React app
 backend/    # FastAPI backend
-lessons/    # mission definitions
-docs/       # product, safety, demo, and architecture notes
-shared/     # shared schemas when needed
+lessons/    # JSON quest definitions
+docs/       # product, safety, demo, and release notes
+shared/     # shared lesson schema
 ```
 
-The first lesson pack is in [lessons](lessons), and the lesson contract is in
+The lesson pack is in [lessons](lessons), and the lesson contract is in
 [lesson.schema.json](shared/schemas/lesson.schema.json).
 
 ## Run Frontend
@@ -108,13 +120,11 @@ curl -X POST http://127.0.0.1:8001/api/v1/run \
 The run response includes kid-facing runtime events. See
 [Runtime Events](docs/runtime-events.md).
 
-Safety and accessibility notes:
+## Docs
 
+- [Product Definition](docs/product-definition.md)
 - [Safety Notes](docs/safety.md)
 - [Accessibility Notes](docs/accessibility.md)
-
-Testing and demo:
-
 - [Smoke Test](docs/smoke-test.md)
 - [Demo Flow](docs/demo-flow.md)
 - [V1 Release Notes](docs/release-notes-v1.md)
@@ -123,15 +133,9 @@ Testing and demo:
 
 - Frontend build passes with `npm run build`.
 - Backend imports cleanly and exposes `/health`.
-- The demo mission flow runs from lesson load through mission validation.
-- Runtime story cards stay synced with the Code Map.
-- Local helper hints and explanations work without external AI services.
-- Known limitations are documented in the release notes.
-
-## Current Status
-
-This repository has project foundation docs plus a minimal Vite/FastAPI
-skeleton. The backend can run one small Python snippet with prototype guardrails.
-Runtime story cards, the mission picker, expected-output validation, simple
-skill badges, local helper hints, and kid-friendly empty/loading states are
-implemented.
+- `/api/v1/run` handles simple output, runtime errors, blocked imports, and timeouts.
+- Quest List, Previous, and Next navigation work.
+- Story cards stay synced with code-line highlighting.
+- Sebot opens with the V1 greeting and provides local hints/explanations.
+- Lesson validation works for expected output and required concepts.
+- Known limitations are documented in release notes.

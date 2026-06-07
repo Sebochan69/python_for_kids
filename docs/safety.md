@@ -7,7 +7,7 @@ requirements, not extras.
 
 - No personal data prompts.
 - No public sharing.
-- No accounts in the first milestone.
+- No accounts in V1.
 - No free-form child AI chat.
 - No external links in child-facing helper text.
 - No automatic full-solution generation.

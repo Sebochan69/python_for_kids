@@ -14,6 +14,8 @@ clear, and safety-aware.
   are designed.
 - Keep runtime execution controlled and documented as a prototype unless a
   stronger sandbox is implemented.
+- Treat the current 14-quest path, Quest List navigation, and Sebot guide as
+  the V1 baseline.
 
 ## Engineering Rules
 
@@ -21,8 +23,8 @@ clear, and safety-aware.
 - Reuse ideas from OOH-AHH, but do not copy the whole multi-track app.
 - Do not add backend, frontend, AI, or persistence features before the ticket
   asks for them.
-- Keep the first product simple: one-file code, run mission, story steps,
-  output, validation, hints.
+- Keep V1 simple: one-file code, Run Quest, Adventure Log, Python Printed
+  output, validation, and Sebot hints.
 - Use deterministic local explanations before any LLM integration.
 
 ## Vocabulary
@@ -33,7 +35,7 @@ clear, and safety-aware.
 - loop: repeater
 - condition: question
 - function: machine
-- print: say
+- print: print or say, depending on the child-facing sentence
 - error: Python got stuck
 
 ## Review Checklist
@@ -42,4 +44,4 @@ clear, and safety-aware.
 - Is the wording gentle?
 - Does the feature avoid collecting child data?
 - Does it avoid giving full answers?
-- Does it keep the first milestone small?
+- Does it preserve the V1 child-facing simplicity?
