@@ -1,0 +1,211 @@
+.world-map-screen {
+  min-height: 100vh;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: clamp(16px, 3vw, 28px);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 72%), rgb(255 248 214 / 88%)),
+    radial-gradient(circle at 16% 18%, #d7f7ff 0 12%, transparent 13%),
+    radial-gradient(circle at 84% 16%, #dcfce7 0 11%, transparent 12%),
+    linear-gradient(135deg, #d8f3ff, #fff3bf 54%, #dcfce7);
+}
+
+.world-map-header,
+.world-map-board,
+.world-map-panel,
+.map-progress-card {
+  border: 4px solid var(--frame);
+  background: var(--paper);
+  box-shadow: 7px 7px 0 rgb(35 49 66 / 88%);
+}
+
+.world-map-header {
+  padding: 16px;
+}
+
+.world-map-header > div {
+  display: grid;
+  gap: 7px;
+}
+
+.world-map-header p,
+.map-progress-card li,
+.locked-preview span {
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.world-map-layout {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.4fr) minmax(280px, 0.8fr);
+  gap: 16px;
+}
+
+.world-map-board {
+  position: relative;
+  min-height: 660px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgb(47 125 88 / 10%) 1px, transparent 1px),
+    linear-gradient(rgb(47 125 88 / 10%) 1px, transparent 1px),
+    #dff8cb;
+  background-size: 34px 34px, 34px 34px, auto;
+  padding: 18px;
+}
+
+.world-map-board__base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+}
+
+.map-node {
+  position: absolute;
+  z-index: 1;
+  width: min(220px, 38vw);
+  min-height: 128px;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  border-width: 3px;
+  background: #fffbe3;
+  color: var(--frame);
+  padding: 12px;
+  text-align: left;
+  text-transform: none;
+}
+
+.map-node img,
+.locked-preview img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.map-node span,
+.map-node small {
+  color: var(--quest-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.map-node strong {
+  line-height: 1.25;
+}
+
+.map-node--chapter {
+  left: 7%;
+  top: 8%;
+}
+
+.map-node--battle {
+  left: 38%;
+  top: 25%;
+}
+
+.map-node--boss {
+  right: 8%;
+  bottom: 8%;
+  background: #ffe4e6;
+}
+
+.map-node--boss:not(.is-locked) {
+  background: #dcfce7;
+}
+
+.map-node.is-locked {
+  opacity: 0.72;
+}
+
+.map-side-quest-lane {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 28%;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.map-side-quest-lane .map-node {
+  position: static;
+  width: 100%;
+}
+
+.world-map-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 14px;
+}
+
+.map-progress-card {
+  display: grid;
+  gap: 10px;
+  box-shadow: none;
+  padding: 12px;
+}
+
+.map-progress-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.map-progress-card li.is-complete {
+  color: var(--quest-dark);
+  font-weight: 900;
+}
+
+.locked-chapter-list {
+  display: grid;
+  gap: 8px;
+}
+
+.locked-preview {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  border: 3px solid var(--frame);
+  background: #f8fafc;
+  padding: 8px;
+}
+
+.locked-preview--guild {
+  background: #fff7ed;
+}
+
+@media (max-width: 980px) {
+  .world-map-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .world-map-board {
+    min-height: auto;
+    display: grid;
+    gap: 12px;
+  }
+
+  .map-node,
+  .map-node--chapter,
+  .map-node--battle,
+  .map-node--boss,
+  .map-side-quest-lane {
+    position: relative;
+    inset: auto;
+    width: 100%;
+  }
+
+  .map-side-quest-lane {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

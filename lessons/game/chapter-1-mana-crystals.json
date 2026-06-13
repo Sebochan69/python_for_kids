@@ -1,0 +1,463 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "chapter-1-mana-crystals",
+  "gameTitle": "Python Wizard RPG",
+  "chapterNumber": 1,
+  "title": "Mana Crystals",
+  "summary": "Learn variables by storing magic words and numbers in mana crystals.",
+  "difficulty": "starter",
+  "topic": "variables",
+  "ageRange": "7-10",
+  "estimatedMinutes": 20,
+  "learningGoals": [
+    "Understand that a variable is a name that remembers a value.",
+    "Store words and numbers with one equals sign.",
+    "Use a variable name later to print the value it remembers."
+  ],
+  "concepts": [
+    "variable_assignment",
+    "variable_reference",
+    "string_literal",
+    "number_literal",
+    "print_statement"
+  ],
+  "tutorial": [
+    {
+      "id": "meet-the-crystal",
+      "title": "Meet the Mana Crystal",
+      "narration": "A mana crystal can remember one piece of magic for you. In Python, that kind of memory is called a variable.",
+      "focusCode": "crystal = \"Glow\"",
+      "callout": "The name is on the left. The remembered value is on the right."
+    },
+    {
+      "id": "use-equals",
+      "title": "Store a Spell",
+      "narration": "The equals sign tells Python to store the value in the name. Read it as: crystal remembers Glow.",
+      "focusCode": "crystal = \"Glow\"",
+      "callout": "Words need quotes so Python knows they are words."
+    },
+    {
+      "id": "say-the-memory",
+      "title": "Say What It Remembers",
+      "narration": "After a crystal remembers a value, use the crystal name to get that value back.",
+      "focusCode": "print(crystal)",
+      "callout": "Do not put quotes around the variable name when you want its stored value."
+    }
+  ],
+  "spellbookPages": [
+    {
+      "id": "variables-are-crystals",
+      "title": "Variables Are Mana Crystals",
+      "body": "A variable is a name that remembers a value. In this chapter, every variable is like a mana crystal with a label.",
+      "codeExample": "spell = \"Glow\"",
+      "remember": "Variable names go on the left side of the equals sign."
+    },
+    {
+      "id": "words-use-quotes",
+      "title": "Word Magic Needs Quotes",
+      "body": "When you store a word, put the word inside quotes. The quotes tell Python the value is text.",
+      "codeExample": "crystal_color = \"blue\"",
+      "remember": "Words use quotes. Variable names do not."
+    },
+    {
+      "id": "numbers-can-be-stored",
+      "title": "Numbers Fit Too",
+      "body": "A variable can remember a number. Numbers do not need quotes.",
+      "codeExample": "mana = 5",
+      "remember": "Use quotes for words, but not for numbers."
+    },
+    {
+      "id": "use-the-name",
+      "title": "Call the Crystal Name",
+      "body": "Use the variable name when you want Python to bring back the value it remembers.",
+      "codeExample": "spell = \"Spark\"\nprint(spell)",
+      "remember": "print(spell) prints the value inside spell."
+    }
+  ],
+  "spells": [
+    {
+      "id": "glow-spark",
+      "name": "Glow",
+      "description": "A small word spell that lights up a correct variable.",
+      "metaphor": "The spell wakes up when a crystal remembers a word.",
+      "baseEffect": {
+        "spellId": "glow-spark",
+        "effectKind": "damage",
+        "target": "enemy",
+        "fixedValue": 2,
+        "cap": 2,
+        "animationKey": "glow-spark",
+        "successText": "Glow flashes for 2 magic damage."
+      }
+    },
+    {
+      "id": "mana-pop",
+      "name": "Mana Pop",
+      "description": "A bright pop of number magic.",
+      "metaphor": "The spell wakes up when a crystal remembers a number.",
+      "baseEffect": {
+        "spellId": "mana-pop",
+        "effectKind": "damage",
+        "target": "enemy",
+        "fixedValue": 2,
+        "cap": 2,
+        "animationKey": "mana-pop",
+        "successText": "Mana Pop bursts for 2 magic damage."
+      }
+    },
+    {
+      "id": "crystal-call",
+      "name": "Crystal Call",
+      "description": "A spell that calls back a stored value.",
+      "metaphor": "The spell wakes up when you use a variable name.",
+      "baseEffect": {
+        "spellId": "crystal-call",
+        "effectKind": "damage",
+        "target": "enemy",
+        "fixedValue": 3,
+        "cap": 3,
+        "animationKey": "crystal-call",
+        "successText": "Crystal Call rings for 3 magic damage."
+      }
+    },
+    {
+      "id": "tower-burst",
+      "name": "Tower Burst",
+      "description": "A bigger spell made from two variables.",
+      "metaphor": "The spell wakes up when word magic and number magic work together.",
+      "baseEffect": {
+        "spellId": "tower-burst",
+        "effectKind": "boss_damage",
+        "target": "boss",
+        "fixedValue": 6,
+        "cap": 6,
+        "animationKey": "tower-burst",
+        "successText": "Tower Burst lands for 6 fixed boss damage."
+      }
+    }
+  ],
+  "battles": [
+    {
+      "id": "battle-glimmer-gate",
+      "type": "normal",
+      "title": "The Glimmer Gate",
+      "enemy": {
+        "id": "dim-rune",
+        "name": "Dim Rune",
+        "hp": 6,
+        "maxHp": 6,
+        "description": "A sleepy rune blocks the hallway until it sees a few steady word spells.",
+        "intent": {
+          "type": "attack",
+          "amount": 1,
+          "text": "Dim Rune attacks for 1. Missed chants make it zap for 2."
+        }
+      },
+      "setupText": "The first gate needs a few word sparks. Fill the blank so the crystal remembers Glow. Dim Rune attacks after each turn, and missed chants make it hit harder.",
+      "victoryText": "The rune glows bright, gives one last happy blink, and the gate opens.",
+      "challenge": {
+        "id": "store-glow",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Store a Word Spell",
+        "prompt": "Fill the blank with the word Glow in quotes.",
+        "starterCode": "spell = ___\nprint(spell)",
+        "blankToken": "___",
+        "expectedStdout": "Glow\n",
+        "acceptedAnswers": [
+          "\"Glow\"",
+          "'Glow'"
+        ],
+        "hints": [
+          "The word Glow needs quotes around it.",
+          "Try putting Glow on the right side of the equals sign.",
+          "The line should read like: spell remembers Glow."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "string_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "glow-spark",
+          "effectKind": "damage",
+          "target": "enemy",
+          "fixedValue": 2,
+          "cap": 2,
+          "animationKey": "glow-spark",
+          "successText": "Correct code casts Glow for 2 fixed damage."
+        }
+      }
+    },
+    {
+      "id": "battle-mana-meter",
+      "type": "normal",
+      "title": "The Mana Meter",
+      "enemy": {
+        "id": "empty-meter",
+        "name": "Empty Meter",
+        "hp": 2,
+        "maxHp": 2,
+        "description": "A floating meter waits for a number crystal."
+      },
+      "setupText": "The meter asks for 5 drops of mana. Store the number 5 in the variable.",
+      "victoryText": "The meter fills with bright blue light.",
+      "challenge": {
+        "id": "store-five",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Store a Number",
+        "prompt": "Fill the blank with the number 5.",
+        "starterCode": "mana = ___\nprint(mana)",
+        "blankToken": "___",
+        "expectedStdout": "5\n",
+        "acceptedAnswers": [
+          "5"
+        ],
+        "hints": [
+          "Numbers do not need quotes.",
+          "Put 5 on the right side of the equals sign.",
+          "mana = 5 means mana remembers the number 5."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "number_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "mana-pop",
+          "effectKind": "damage",
+          "target": "enemy",
+          "fixedValue": 2,
+          "cap": 2,
+          "animationKey": "mana-pop",
+          "successText": "Correct code casts Mana Pop for 2 fixed damage."
+        }
+      }
+    },
+    {
+      "id": "battle-mirror-mist",
+      "type": "normal",
+      "title": "Mirror Mist",
+      "enemy": {
+        "id": "mirror-mist",
+        "name": "Mirror Mist",
+        "hp": 3,
+        "maxHp": 3,
+        "description": "A shining mist copies whatever value your crystal remembers."
+      },
+      "setupText": "The mist needs you to use the variable name, not the word in quotes.",
+      "victoryText": "The mist shows Spark and fades away.",
+      "challenge": {
+        "id": "print-crystal",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Use the Crystal Name",
+        "prompt": "Fill the blank with the variable name so Python prints Spark.",
+        "starterCode": "crystal = \"Spark\"\nprint(___)",
+        "blankToken": "___",
+        "expectedStdout": "Spark\n",
+        "acceptedAnswers": [
+          "crystal"
+        ],
+        "hints": [
+          "Use the variable name that is already on the first line.",
+          "Do not add quotes around crystal.",
+          "print(crystal) asks Python for the value inside crystal."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "variable_reference",
+          "string_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "crystal-call",
+          "effectKind": "damage",
+          "target": "enemy",
+          "fixedValue": 3,
+          "cap": 3,
+          "animationKey": "crystal-call",
+          "successText": "Correct code casts Crystal Call for 3 fixed damage."
+        }
+      }
+    }
+  ],
+  "sideQuests": [
+    {
+      "id": "side-quest-practice-wand",
+      "title": "Practice Wand Label",
+      "summary": "Help a young wizard label a practice wand with a word variable.",
+      "giverName": "Mira",
+      "rewardText": "Mira adds a star sticker to your spellbook.",
+      "challenge": {
+        "id": "name-practice-wand",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Name the Practice Wand",
+        "prompt": "Fill the blank with the word Star in quotes.",
+        "starterCode": "wand_name = ___\nprint(wand_name)",
+        "blankToken": "___",
+        "expectedStdout": "Star\n",
+        "acceptedAnswers": [
+          "\"Star\"",
+          "'Star'"
+        ],
+        "hints": [
+          "Star is a word, so it needs quotes.",
+          "Put the quoted word after the equals sign.",
+          "The variable wand_name will remember the word."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "string_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "glow-spark",
+          "effectKind": "unlock",
+          "target": "scene",
+          "fixedValue": 1,
+          "cap": 1,
+          "animationKey": "sticker-unlock",
+          "successText": "Correct code unlocks 1 spellbook sticker."
+        }
+      }
+    },
+    {
+      "id": "side-quest-mana-jars",
+      "title": "Mana Jar Count",
+      "summary": "Help count the mana jars before the tower door closes.",
+      "giverName": "Keeper Sol",
+      "rewardText": "Keeper Sol gives you a tiny shield charm.",
+      "challenge": {
+        "id": "count-mana-jars",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Store the Jar Count",
+        "prompt": "Fill the blank with the number 3.",
+        "starterCode": "mana_jars = ___\nprint(mana_jars)",
+        "blankToken": "___",
+        "expectedStdout": "3\n",
+        "acceptedAnswers": [
+          "3"
+        ],
+        "hints": [
+          "The answer is a number, so it does not need quotes.",
+          "Put 3 after the equals sign.",
+          "mana_jars = 3 means the variable remembers 3."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "number_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "mana-pop",
+          "effectKind": "shield",
+          "target": "player",
+          "fixedValue": 1,
+          "cap": 1,
+          "animationKey": "tiny-shield",
+          "successText": "Correct code grants 1 fixed shield point."
+        }
+      }
+    },
+    {
+      "id": "side-quest-crystal-call",
+      "title": "Crystal Echo",
+      "summary": "Help the tower echo repeat the value stored inside a crystal.",
+      "giverName": "Echo Sprite",
+      "rewardText": "The Echo Sprite opens a tiny shortcut to the boss door.",
+      "challenge": {
+        "id": "echo-crystal-name",
+        "challengeType": "fill_blank",
+        "answerMode": "blank",
+        "title": "Call Back the Crystal",
+        "prompt": "Fill the blank with the variable name so Python prints Moon.",
+        "starterCode": "crystal_word = \"Moon\"\nprint(___)",
+        "blankToken": "___",
+        "expectedStdout": "Moon\n",
+        "acceptedAnswers": [
+          "crystal_word"
+        ],
+        "hints": [
+          "Use the variable name from the first line.",
+          "Do not put quotes around crystal_word.",
+          "print(crystal_word) asks Python for the value inside the crystal."
+        ],
+        "requiredConcepts": [
+          "variable_assignment",
+          "variable_reference",
+          "string_literal",
+          "print_statement"
+        ],
+        "validationNotes": "Accepted answers are blank-only values for the ___ token.",
+        "spellEffect": {
+          "spellId": "crystal-call",
+          "effectKind": "unlock",
+          "target": "scene",
+          "fixedValue": 1,
+          "cap": 1,
+          "animationKey": "shortcut-unlock",
+          "successText": "Correct code unlocks 1 boss-door shortcut."
+        }
+      }
+    }
+  ],
+  "bossFight": {
+    "id": "boss-locked-tower-core",
+    "title": "Boss Fight: Locked Tower Core",
+    "boss": {
+      "id": "locked-tower-core",
+      "name": "Locked Tower Core",
+      "hp": 6,
+      "maxHp": 6,
+      "description": "A glowing tower lock that opens only when two mana crystals work together."
+    },
+    "setupText": "The tower core asks for a word crystal and a number crystal. Type the guided code to charge both crystals.",
+    "victoryText": "The tower core opens. You have learned the first secret of variables.",
+    "challenge": {
+      "id": "charge-two-crystals",
+      "challengeType": "guided_typing",
+      "answerMode": "full_code",
+      "title": "Charge Two Mana Crystals",
+      "prompt": "Type the code that stores Luna in crystal_name, stores 7 in mana_power, then prints both variables.",
+      "starterCode": "# Type three lines below.\n",
+      "expectedStdout": "Luna\n7\n",
+      "acceptedAnswers": [
+        "crystal_name = \"Luna\"\nmana_power = 7\nprint(crystal_name)\nprint(mana_power)",
+        "crystal_name = 'Luna'\nmana_power = 7\nprint(crystal_name)\nprint(mana_power)"
+      ],
+      "hints": [
+        "First make crystal_name remember the word Luna.",
+        "Then make mana_power remember the number 7.",
+        "Print each variable name without quotes."
+      ],
+      "requiredConcepts": [
+        "variable_assignment",
+        "variable_reference",
+        "string_literal",
+        "number_literal",
+        "print_statement"
+      ],
+      "validationNotes": "Accepted answers are full-code solutions. UI may normalize trailing whitespace before comparing.",
+      "spellEffect": {
+        "spellId": "tower-burst",
+        "effectKind": "boss_damage",
+        "target": "boss",
+        "fixedValue": 6,
+        "cap": 6,
+        "animationKey": "tower-burst",
+        "successText": "Correct code casts Tower Burst for 6 fixed boss damage."
+      }
+    },
+    "rewardText": "Chapter 1 complete: Variable Apprentice badge unlocked."
+  },
+  "adultGuidance": "This POC chapter uses gentle fantasy language to teach variables as named memory boxes. Correct answers trigger fixed JSON spell effects; learner code should never set uncapped damage."
+}

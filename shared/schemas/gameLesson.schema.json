@@ -1,0 +1,456 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/python-for-kids/gameLesson.schema.json",
+  "title": "Python Wizard RPG Game Lesson",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "gameTitle",
+    "chapterNumber",
+    "title",
+    "summary",
+    "difficulty",
+    "topic",
+    "ageRange",
+    "estimatedMinutes",
+    "learningGoals",
+    "concepts",
+    "tutorial",
+    "spellbookPages",
+    "spells",
+    "battles",
+    "sideQuests",
+    "bossFight"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "gameTitle": {
+      "type": "string"
+    },
+    "chapterNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["starter", "easy"]
+    },
+    "topic": {
+      "type": "string"
+    },
+    "ageRange": {
+      "type": "string"
+    },
+    "estimatedMinutes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "learningGoals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conceptTag"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "tutorial": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tutorialStep"
+      },
+      "minItems": 1
+    },
+    "spellbookPages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/spellbookPage"
+      },
+      "minItems": 1
+    },
+    "spells": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/spell"
+      },
+      "minItems": 1
+    },
+    "battles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/battle"
+      },
+      "minItems": 1
+    },
+    "sideQuests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sideQuest"
+      }
+    },
+    "bossFight": {
+      "$ref": "#/$defs/bossFight"
+    },
+    "adultGuidance": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "conceptTag": {
+      "type": "string",
+      "enum": [
+        "print_statement",
+        "variable_assignment",
+        "variable_reference",
+        "string_literal",
+        "number_literal"
+      ]
+    },
+    "tutorialStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "narration"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "focusCode": {
+          "type": "string"
+        },
+        "callout": {
+          "type": "string"
+        }
+      }
+    },
+    "spellbookPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "body", "codeExample", "remember"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "codeExample": {
+          "type": "string"
+        },
+        "remember": {
+          "type": "string"
+        }
+      }
+    },
+    "spell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "description", "metaphor", "baseEffect"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "metaphor": {
+          "type": "string"
+        },
+        "baseEffect": {
+          "$ref": "#/$defs/spellEffect"
+        }
+      }
+    },
+    "battle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "title",
+        "enemy",
+        "setupText",
+        "victoryText",
+        "challenge"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["normal"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "enemy": {
+          "$ref": "#/$defs/enemy"
+        },
+        "setupText": {
+          "type": "string"
+        },
+        "victoryText": {
+          "type": "string"
+        },
+        "challenge": {
+          "$ref": "#/$defs/challenge"
+        }
+      }
+    },
+    "sideQuest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "summary",
+        "giverName",
+        "rewardText",
+        "challenge"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "giverName": {
+          "type": "string"
+        },
+        "rewardText": {
+          "type": "string"
+        },
+        "challenge": {
+          "$ref": "#/$defs/challenge"
+        }
+      }
+    },
+    "bossFight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "boss",
+        "setupText",
+        "victoryText",
+        "challenge",
+        "rewardText"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "boss": {
+          "$ref": "#/$defs/enemy"
+        },
+        "setupText": {
+          "type": "string"
+        },
+        "victoryText": {
+          "type": "string"
+        },
+        "challenge": {
+          "$ref": "#/$defs/challenge"
+        },
+        "rewardText": {
+          "type": "string"
+        }
+      }
+    },
+    "enemy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "hp", "maxHp", "description"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "hp": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "maxHp": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "challenge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "challengeType",
+        "answerMode",
+        "title",
+        "prompt",
+        "starterCode",
+        "expectedStdout",
+        "acceptedAnswers",
+        "hints",
+        "requiredConcepts",
+        "spellEffect"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "challengeType": {
+          "type": "string",
+          "enum": ["fill_blank", "guided_typing"]
+        },
+        "answerMode": {
+          "type": "string",
+          "enum": ["blank", "full_code"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "starterCode": {
+          "type": "string"
+        },
+        "blankToken": {
+          "type": "string"
+        },
+        "expectedStdout": {
+          "type": "string"
+        },
+        "acceptedAnswers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "requiredConcepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptTag"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "validationNotes": {
+          "type": "string"
+        },
+        "spellEffect": {
+          "$ref": "#/$defs/spellEffect"
+        }
+      }
+    },
+    "spellEffect": {
+      "type": "object",
+      "description": "Fixed game outcome for a correct answer. Player code output must not be used as uncapped damage.",
+      "additionalProperties": false,
+      "required": [
+        "spellId",
+        "effectKind",
+        "target",
+        "fixedValue",
+        "cap",
+        "animationKey",
+        "successText"
+      ],
+      "properties": {
+        "spellId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "effectKind": {
+          "type": "string",
+          "enum": ["damage", "shield", "heal", "unlock", "boss_damage"]
+        },
+        "target": {
+          "type": "string",
+          "enum": ["enemy", "boss", "player", "scene"]
+        },
+        "fixedValue": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "cap": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "animationKey": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "successText": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
