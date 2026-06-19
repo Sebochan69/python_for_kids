@@ -1,0 +1,150 @@
+{
+  "project": "Python Wizard RPG POC",
+  "harness_context": "Harness Engineering",
+  "last_updated": "2026-06-19",
+  "rules": {
+    "single_active_feature": true,
+    "passing_requires_evidence": true,
+    "do_not_skip_verification": true,
+    "damage_values_must_come_from_config": true,
+    "no_child_facing_free_form_ai_without_safety_review": true
+  },
+  "status_legend": {
+    "not_started": "Work has not begun.",
+    "in_progress": "The feature is the current active task.",
+    "blocked": "Work cannot continue until a documented blocker is resolved.",
+    "passing": "Required verification has passed and evidence is recorded."
+  },
+  "features": [
+    {
+      "id": "pwrpg-001",
+      "priority": 1,
+      "area": "content",
+      "title": "Chapter 1 game lesson schema and sample data",
+      "user_visible_behavior": "The RPG can load Chapter 1: Mana Crystals with tutorial content, spellbook pages, battles, side quests, hints, accepted answers, and a boss fight.",
+      "status": "passing",
+      "verification": [
+        "Confirm shared/schemas/gameLesson.schema.json exists.",
+        "Confirm lessons/game/chapter-1-mana-crystals.json exists.",
+        "Confirm every battle challenge has acceptedAnswers and hints.",
+        "Confirm spell damage/heal/block/mana values are fixed or capped in JSON."
+      ],
+      "evidence": [
+        "Chapter data is consumed by the React game flow.",
+        "Frontend build passed with npm run build on 2026-06-19."
+      ],
+      "notes": "Keep content kid-friendly for ages 7-10."
+    },
+    {
+      "id": "pwrpg-002",
+      "priority": 2,
+      "area": "battle-engine",
+      "title": "Turn-based coding battle engine",
+      "user_visible_behavior": "Correct answers trigger configured spell effects; wrong answers do not apply spell effects and cause a stronger enemy counter.",
+      "status": "passing",
+      "verification": [
+        "Run frontend build.",
+        "Review src/game/battle/battleEngine.ts.",
+        "Confirm typed answers only decide validation success or failure.",
+        "Confirm damage, heal, block, and mana gain values come from spell config."
+      ],
+      "evidence": [
+        "Battle UI uses submitAnswer and applyEnemyTurn from the engine.",
+        "Frontend build passed with npm run build on 2026-06-19."
+      ],
+      "notes": "Do not allow user input to set uncapped damage."
+    },
+    {
+      "id": "pwrpg-003",
+      "priority": 3,
+      "area": "battle-ui",
+      "title": "Playable JRPG battle screen",
+      "user_visible_behavior": "The player chooses the Glow spell, completes the code chant, casts, sees the projectile hit, and sees HP update on impact.",
+      "status": "passing",
+      "verification": [
+        "Run npm run build from frontend.",
+        "Open the app with npm run dev.",
+        "Start the first battle.",
+        "Submit a correct answer and verify the projectile impact happens before HP changes.",
+        "Submit a wrong answer and verify no spell effect is applied."
+      ],
+      "evidence": [
+        "Automated build passed on 2026-06-19.",
+        "Manual browser feel check still recommended after asset and layout changes."
+      ],
+      "notes": "Current enemy asset integration uses skeleton soldier sprites."
+    },
+    {
+      "id": "pwrpg-004",
+      "priority": 4,
+      "area": "learning-flow",
+      "title": "Tutorial, spellbook, and owl hint flow",
+      "user_visible_behavior": "The learner sees tutorial content, can open the flipping spellbook, and can click the owl for one hint at a time.",
+      "status": "passing",
+      "verification": [
+        "Run npm run build from frontend.",
+        "Start the app and enter Chapter 1.",
+        "Open and close the spellbook.",
+        "Click the owl and verify hints reveal one at a time."
+      ],
+      "evidence": [
+        "Spellbook and owl components are wired into BattleScreen.",
+        "Frontend build passed with npm run build on 2026-06-19."
+      ],
+      "notes": "AI is intentionally mocked/scripted for now."
+    },
+    {
+      "id": "pwrpg-005",
+      "priority": 5,
+      "area": "progress-map",
+      "title": "World map, side quests, boss unlock, and local progress",
+      "user_visible_behavior": "Progress persists in localStorage, side quests can complete, and the boss unlocks after tutorial, one normal battle, and three side quests.",
+      "status": "passing",
+      "verification": [
+        "Run npm run build from frontend.",
+        "Complete tutorial, one battle, and three side quests.",
+        "Refresh and verify progress persists.",
+        "Verify boss node unlocks."
+      ],
+      "evidence": [
+        "progressStore, WorldMap, SideQuestScreen, and ChapterFlow are present.",
+        "Frontend build passed with npm run build on 2026-06-19."
+      ],
+      "notes": "No auth, database, or server persistence."
+    },
+    {
+      "id": "pwrpg-006",
+      "priority": 6,
+      "area": "jrpg-polish",
+      "title": "JRPG feel, assets, animation timing, and layout polish",
+      "user_visible_behavior": "The battle feels like a real JRPG loop: choose spell, chant code, cast, projectile hits, enemy responds, and sprites show clear pose changes.",
+      "status": "in_progress",
+      "verification": [
+        "Run npm run build from frontend.",
+        "Open the app with npm run dev.",
+        "Play the first battle at desktop size.",
+        "Verify no key UI elements overlap.",
+        "Verify skeleton idle, hurt, attack, defeated, and victory poses render at the right times."
+      ],
+      "evidence": [
+        "Skeleton assets were integrated and npm run build passed on 2026-06-19."
+      ],
+      "notes": "Manual browser/feel check is the next best action."
+    },
+    {
+      "id": "pwrpg-007",
+      "priority": 7,
+      "area": "backend-runtime",
+      "title": "Optional RPG-to-runtime integration",
+      "user_visible_behavior": "Future coding challenges may call the existing FastAPI /api/v1/run endpoint for controlled Python execution when the product is ready.",
+      "status": "not_started",
+      "verification": [
+        "Confirm backend /health works.",
+        "Confirm /api/v1/run remains controlled and documented.",
+        "Confirm child-facing UI does not expose raw runtime JSON."
+      ],
+      "evidence": [],
+      "notes": "Do not add this until the battle UX is stable."
+    }
+  ]
+}
