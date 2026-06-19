@@ -67,30 +67,40 @@
   display: grid;
   align-content: end;
   place-items: center;
-  width: min(310px, 28vw);
-  min-width: 250px;
-  min-height: 390px;
+  width: min(350px, 30vw);
+  min-width: 280px;
+  min-height: 430px;
   padding-top: 126px;
 }
 
 .floating-spellbook {
   position: absolute;
-  left: -56px;
-  top: 178px;
+  left: -78px;
+  top: 166px;
   z-index: 8;
   display: grid;
   justify-items: center;
-  gap: 3px;
-  min-width: 82px;
-  min-height: 82px;
-  border-radius: 50%;
-  background: #fffbe3;
+  width: 126px;
+  min-height: 102px;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--frame);
   font-size: 0.72rem;
   line-height: 1;
-  padding: 8px;
+  padding: 0;
   text-transform: none;
   animation: spellbook-float 2.8s ease-in-out infinite;
+}
+
+.floating-spellbook__image {
+  width: 190%;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  transform: translateY(-2%);
+  filter: drop-shadow(4px 5px 0 rgb(35 49 66 / 48%));
 }
 
 .wizard-chant-bubble {
@@ -176,40 +186,88 @@
 }
 
 .owl-companion {
+  --owl-hit-height: 210px;
+  --owl-hit-width: 290px;
   position: absolute;
-  right: -92px;
-  bottom: 168px;
-  z-index: 1;
+  right: -112px;
+  bottom: 480px;
+  z-index: 9;
   display: grid;
   justify-items: center;
 }
 
 .owl-companion__button {
-  width: 88px;
-  min-height: 96px;
+  position: relative;
+  z-index: 1;
+  width: var(--owl-hit-width);
+  height: var(--owl-hit-height);
+  min-height: var(--owl-hit-height);
   display: grid;
   place-items: center;
-  gap: 2px;
-  border-radius: 50% 50% 42% 42%;
-  background: #d7f7ff;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--frame);
+  cursor: pointer;
   font-size: 0.72rem;
   font-weight: 900;
-  padding: 7px;
+  padding: 0;
   text-transform: uppercase;
 }
 
-.owl-companion__button img {
-  width: 68px;
-  height: 68px;
+.owl-companion__button:disabled {
+  background: transparent;
+  box-shadow: none;
+  opacity: 0.55;
+}
+
+.owl-companion__sprite {
+  --owl-flap-speed: 760ms;
+  position: relative;
+  width: var(--owl-hit-width);
+  height: var(--owl-hit-height);
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: owl-hover 2.2s ease-in-out infinite;
+}
+
+.owl-companion__button.is-speaking .owl-companion__sprite,
+.owl-companion__button:hover .owl-companion__sprite,
+.owl-companion__button:focus-visible .owl-companion__sprite {
+  --owl-flap-speed: 420ms;
+}
+
+.owl-companion__sprite-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: auto;
+  max-width: none;
   object-fit: contain;
+  object-position: center;
+  transform: translate(-50%, -50%);
+}
+
+.owl-companion__sprite-frame--down {
+  animation: owl-wings-down var(--owl-flap-speed) steps(1, end) infinite;
+}
+
+.owl-companion__sprite-frame--up {
+  opacity: 0;
+  animation: owl-wings-up var(--owl-flap-speed) steps(1, end) infinite;
 }
 
 .owl-companion__bubble {
-  position: absolute;
-  right: -18px;
-  bottom: 104px;
-  width: 220px;
+  position: fixed;
+  right: clamp(76px, 10vw, 132px);
+  bottom: 340px;
+  z-index: 30;
+  width: min(220px, calc(100vw - 24px));
   display: grid;
   gap: 4px;
   border: 3px solid var(--frame);
@@ -222,12 +280,14 @@
 
 .owl-companion__bubble::after {
   position: absolute;
-  right: 42px;
-  bottom: -13px;
+  left: 28px;
+  top: -13px;
   width: 20px;
   height: 20px;
-  border-right: 3px solid var(--frame);
-  border-bottom: 3px solid var(--frame);
+  border-top: 3px solid var(--frame);
+  border-left: 3px solid var(--frame);
+  border-right: 0;
+  border-bottom: 0;
   background: #fffbe3;
   content: "";
   transform: rotate(45deg);
@@ -239,33 +299,8 @@
   line-height: 1.35;
 }
 
-.floating-spellbook__book {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, 16px);
-  width: 46px;
-  height: 34px;
-  border: 3px solid var(--frame);
-  background: #c44569;
-  transform: rotate(-3deg);
-}
-
-.floating-spellbook__book::before {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--frame);
-  content: "";
-}
-
-.floating-spellbook__book span {
-  background: #fff3bf;
-}
-
-.floating-spellbook:hover .floating-spellbook__book,
-.floating-spellbook:focus-visible .floating-spellbook__book {
+.floating-spellbook:hover .floating-spellbook__image,
+.floating-spellbook:focus-visible .floating-spellbook__image {
   animation: book-wiggle 420ms ease-in-out;
 }
 
@@ -499,11 +534,48 @@
 }
 
 .wizard-sprite {
+  width: min(260px, 23vw);
+  min-width: 220px;
+  overflow: visible;
+  aspect-ratio: 0.72;
+  background:
+    radial-gradient(ellipse at 50% 88%, rgb(15 23 42 / 30%) 0 28%, transparent 30%);
   animation: wizard-breathe 2.4s ease-in-out infinite;
 }
 
+.wizard-sprite::after {
+  inset: auto 18% 5% 18%;
+}
+
+.wizard-sprite img {
+  width: var(--wizard-image-width, 360%);
+  height: auto;
+  max-width: none;
+  max-height: none;
+  object-position: center;
+  transform: translate(var(--wizard-image-x, 0), var(--wizard-image-y, -8%));
+}
+
+.wizard-sprite--cast img {
+  --wizard-image-width: 365%;
+  --wizard-image-x: 2%;
+  --wizard-image-y: -17%;
+}
+
+.wizard-sprite--hurt img {
+  --wizard-image-width: 382%;
+  --wizard-image-x: -4%;
+  --wizard-image-y: -10%;
+  animation: hurt-red-blink 1.4s steps(1, end);
+}
+
+.wizard-sprite--victory img {
+  width: 330%;
+  transform: translateY(-8%);
+}
+
 .wizard-sprite--cast {
-  animation: cast-glow 650ms ease-out;
+  animation: wizard-cast-settle 900ms ease-out;
 }
 
 .wizard-sprite--hurt,
@@ -513,12 +585,81 @@
 
 .wizard-sprite--victory {
   background:
-    radial-gradient(circle at 50% 42%, #fff7ad 0 31%, transparent 32%),
-    linear-gradient(180deg, #d7f7ff, #dcfce7);
+    radial-gradient(circle at 50% 38%, rgb(255 247 173 / 52%) 0 30%, transparent 32%),
+    radial-gradient(ellipse at 50% 88%, rgb(15 23 42 / 30%) 0 28%, transparent 30%);
 }
 
 .enemy-sprite {
   animation: enemy-bounce 1.8s ease-in-out infinite;
+}
+
+.enemy-sprite--attack {
+  animation: enemy-attack-lunge 520ms ease-out;
+}
+
+.enemy-sprite--defeated {
+  animation: none;
+}
+
+.enemy-sprite--victory {
+  animation: enemy-bounce 1.2s ease-in-out infinite;
+}
+
+.enemy-sprite--skeleton-soldier {
+  width: min(350px, 31vw);
+  min-width: 270px;
+  overflow: visible;
+  aspect-ratio: 1.16;
+  background:
+    radial-gradient(ellipse at 50% 84%, rgb(15 23 42 / 32%) 0 30%, transparent 32%);
+}
+
+.enemy-sprite--skeleton-soldier::after {
+  inset: auto 17% 7% 17%;
+}
+
+.enemy-sprite--skeleton-soldier img {
+  width: var(--enemy-image-width, 178%);
+  height: auto;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transform: translate(var(--enemy-image-x, 2%), var(--enemy-image-y, -4%));
+}
+
+.enemy-sprite--skeleton-soldier.enemy-sprite--attack img {
+  --enemy-image-width: 216%;
+  --enemy-image-x: 17%;
+  --enemy-image-y: -2%;
+}
+
+.enemy-sprite--skeleton-soldier.enemy-sprite--hurt img {
+  --enemy-image-width: 182%;
+  --enemy-image-x: 2%;
+  --enemy-image-y: -4%;
+  filter:
+    brightness(1.2)
+    sepia(1)
+    saturate(2.5)
+    hue-rotate(-26deg);
+}
+
+.enemy-sprite--skeleton-soldier.enemy-sprite--defeated {
+  width: min(390px, 34vw);
+  min-width: 300px;
+  transform: translateY(28px);
+}
+
+.enemy-sprite--skeleton-soldier.enemy-sprite--defeated img {
+  --enemy-image-width: 190%;
+  --enemy-image-x: -2%;
+  --enemy-image-y: 13%;
+}
+
+.enemy-sprite--skeleton-soldier.enemy-sprite--victory img {
+  --enemy-image-width: 216%;
+  --enemy-image-x: 17%;
+  --enemy-image-y: -2%;
 }
 
 .battle-status-card {
@@ -544,6 +685,52 @@
 
 .battle-status-card p {
   color: #fffdf2;
+}
+
+.spell-projectile {
+  --fireball-start-x: 67%;
+  --fireball-start-y: 48%;
+  --fireball-impact-x: 27%;
+  --fireball-impact-y: 49%;
+  --fireball-travel-x: -40vw;
+  --fireball-travel-y: 1vh;
+  position: absolute;
+  left: var(--fireball-start-x);
+  top: var(--fireball-start-y);
+  z-index: 5;
+  width: 220px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: fireball-flight 760ms linear forwards;
+  filter: drop-shadow(0 0 16px rgb(253 186 116 / 92%));
+}
+
+.spell-projectile__image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  transform: none;
+  animation: fireball-pulse 150ms ease-in-out infinite alternate;
+}
+
+.spell-projectile--impact {
+  left: var(--fireball-impact-x);
+  top: var(--fireball-impact-y);
+  width: 330px;
+  height: 220px;
+  animation: fireball-impact 360ms ease-out forwards;
+  filter: drop-shadow(0 0 22px rgb(253 224 71 / 94%));
+}
+
+.spell-projectile--impact .spell-projectile__image {
+  transform: scale(1);
+  animation: none;
 }
 
 .battle-outcome {
@@ -616,6 +803,7 @@
   grid-row: 1 / 4;
   position: relative;
   width: 88px;
+  overflow: hidden;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -645,8 +833,9 @@
 .player-status-portrait img {
   position: relative;
   z-index: 1;
-  width: 118%;
-  height: 118%;
+  width: 165%;
+  height: 165%;
+  max-width: none;
   object-fit: contain;
   transform: rotate(-45deg);
 }
@@ -1195,11 +1384,147 @@
   }
 }
 
+@keyframes owl-hover {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes owl-wings-down {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes owl-wings-up {
+  0%,
+  48% {
+    opacity: 0;
+  }
+
+  49%,
+  100% {
+    opacity: 1;
+  }
+}
+
 .battle-log ol {
   display: grid;
   gap: 6px;
   margin: 0;
   padding-left: 18px;
+}
+
+.battle-screen {
+  font-size: 1rem;
+}
+
+.turn-badge,
+.floating-spellbook,
+.wizard-chant-bubble__label,
+.section-kicker,
+.mini-bar__label,
+.battle-outcome,
+.ornate-stat-bar__icon,
+.ornate-stat-bar__label,
+.command-header small,
+.spell-card__effect,
+.companion-hint__portrait::after {
+  font-size: 0.86rem;
+}
+
+.wizard-chant-bubble {
+  width: min(330px, 32vw);
+  min-width: 260px;
+  padding: 11px;
+}
+
+.wizard-chant-bubble__input {
+  min-height: 48px;
+  font-size: 1.08rem;
+}
+
+.wizard-chant-bubble__cast {
+  min-height: 48px;
+}
+
+.owl-companion__bubble p,
+.battle-status-card p,
+.battle-next-turn small,
+.battle-command-overlay p,
+.spell-card__description,
+.selected-spell p,
+.hint-box p,
+.battle-rule-list p,
+.companion-hint__body p,
+.battle-log li {
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.command-help-row {
+  display: none;
+}
+
+.character-hud {
+  width: min(240px, 100%);
+}
+
+.character-hud strong,
+.player-status-name strong,
+.command-header strong,
+.spell-card__name,
+.selected-spell h3 {
+  font-size: 1.05rem;
+}
+
+.character-hud small,
+.battle-hud__note {
+  font-size: 0.95rem;
+}
+
+.battle-status-card {
+  width: min(430px, 40vw);
+}
+
+.battle-next-turn {
+  width: min(270px, 30vw);
+}
+
+.battle-command-overlay {
+  width: min(340px, 29vw);
+  max-height: min(310px, calc(100vh - 190px));
+  overflow: hidden;
+}
+
+.command-spell-row,
+.command-code,
+.spell-card__cursor,
+.code-chant__code,
+.code-chant__label,
+.code-chant__helper,
+.code-chant__input {
+  font-size: 1rem;
+}
+
+.command-code {
+  max-height: 88px;
+  overflow: hidden;
+}
+
+.code-chant__input {
+  min-height: 50px;
 }
 
 @keyframes wizard-breathe {
@@ -1224,6 +1549,20 @@
   }
 }
 
+@keyframes enemy-attack-lunge {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+
+  42% {
+    transform: translateX(26px) translateY(-2px);
+  }
+
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
 @keyframes hurt-shake {
   0%,
   100% {
@@ -1243,20 +1582,84 @@
   }
 }
 
-@keyframes cast-glow {
+@keyframes wizard-cast-settle {
   0% {
-    box-shadow: 5px 5px 0 rgb(35 49 66 / 82%);
+    transform: translateY(0) scale(1);
   }
 
-  50% {
-    box-shadow:
-      0 0 0 6px rgb(246 196 83 / 45%),
-      0 0 28px rgb(47 125 88 / 45%),
-      5px 5px 0 rgb(35 49 66 / 82%);
+  45% {
+    transform: translateY(-3px) scale(1.018);
   }
 
   100% {
-    box-shadow: 5px 5px 0 rgb(35 49 66 / 82%);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hurt-red-blink {
+  0%,
+  18%,
+  36%,
+  54%,
+  72%,
+  100% {
+    filter: none;
+  }
+
+  9%,
+  27%,
+  45%,
+  63%,
+  81% {
+    filter:
+      brightness(1.32)
+      sepia(1)
+      saturate(5)
+      hue-rotate(-36deg)
+      drop-shadow(0 0 10px rgb(248 113 113 / 72%));
+  }
+}
+
+@keyframes fireball-flight {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0.96);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate3d(var(--fireball-travel-x), var(--fireball-travel-y), 0) scale(0.96);
+  }
+}
+
+@keyframes fireball-pulse {
+  0% {
+    transform: scale(0.92);
+  }
+
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes fireball-impact {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.48);
+  }
+
+  56% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.26);
   }
 }
 
@@ -1300,13 +1703,49 @@
   }
 
   .owl-companion {
-    right: -18px;
-    bottom: 142px;
+    --owl-hit-height: 180px;
+    --owl-hit-width: 250px;
+    right: -44px;
+    bottom: 430px;
+  }
+
+  .owl-companion__button {
+    width: var(--owl-hit-width);
+    height: var(--owl-hit-height);
+    min-height: var(--owl-hit-height);
+  }
+
+  .owl-companion__sprite {
+    width: var(--owl-hit-width);
+    height: var(--owl-hit-height);
+  }
+
+  .owl-companion__bubble {
+    right: 56px;
+    bottom: 330px;
+    width: min(220px, calc(100vw - 24px));
   }
 
   .floating-spellbook {
-    left: -18px;
-    top: 170px;
+    left: -52px;
+    top: 160px;
+    width: 112px;
+  }
+
+  .enemy-sprite--skeleton-soldier {
+    width: min(320px, 78vw);
+    min-width: 250px;
+  }
+
+  .enemy-sprite--skeleton-soldier.enemy-sprite--attack img,
+  .enemy-sprite--skeleton-soldier.enemy-sprite--victory img {
+    --enemy-image-width: 190%;
+    --enemy-image-x: 8%;
+  }
+
+  .enemy-sprite--skeleton-soldier.enemy-sprite--defeated {
+    width: min(340px, 84vw);
+    min-width: 260px;
   }
 
   .fighter-area--player {
@@ -1331,6 +1770,22 @@
     top: 70px;
     width: min(260px, calc(100vw - 32px));
   }
+
+  .spell-projectile {
+    --fireball-start-x: 54%;
+    --fireball-start-y: 62%;
+    --fireball-impact-x: 50%;
+    --fireball-impact-y: 31%;
+    --fireball-travel-x: -4vw;
+    --fireball-travel-y: -31vh;
+    width: 170px;
+    height: 116px;
+  }
+
+  .spell-projectile--impact {
+    width: 250px;
+    height: 168px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1346,9 +1801,26 @@
 @media (prefers-reduced-motion: reduce) {
   .wizard-sprite,
   .enemy-sprite,
+  .enemy-sprite--attack,
   .wizard-sprite--cast,
   .wizard-sprite--hurt,
-  .enemy-sprite--hurt {
+  .enemy-sprite--hurt,
+  .spell-projectile,
+  .spell-projectile__image {
     animation: none;
+  }
+
+  .wizard-sprite--hurt img {
+    animation: none;
+    filter: none;
+  }
+
+  .owl-companion__sprite,
+  .owl-companion__sprite-frame {
+    animation: none;
+  }
+
+  .owl-companion__sprite-frame--up {
+    opacity: 0;
   }
 }

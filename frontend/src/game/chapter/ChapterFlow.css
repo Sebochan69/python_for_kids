@@ -84,6 +84,10 @@
   background: rgb(15 23 42 / 55%);
 }
 
+.modal-backdrop--book-only {
+  cursor: pointer;
+}
+
 .spellbook-modal {
   width: min(900px, 100%);
   max-height: min(760px, calc(100vh - 32px));
@@ -97,6 +101,20 @@
   scrollbar-width: none;
 }
 
+.spellbook-modal--book-only {
+  width: min(900px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: visible;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  cursor: default;
+}
+
 .spellbook-modal::-webkit-scrollbar {
   display: none;
 }
@@ -108,6 +126,10 @@
   border: 3px solid var(--frame);
   background: #c44569;
   content: "";
+}
+
+.spellbook-modal--book-only::before {
+  display: none;
 }
 
 .spellbook-modal__header {
@@ -153,6 +175,11 @@
   justify-self: center;
   overflow: visible;
   perspective: 1800px;
+}
+
+.spellbook-modal--book-only .spellbook-modal__book {
+  width: min(900px, calc(100vw - 32px));
+  min-height: min(520px, calc(100vh - 48px));
 }
 
 .spellbook-flip {
@@ -241,6 +268,34 @@
   line-height: 1.45;
 }
 
+.chapter-screen {
+  font-size: 1rem;
+}
+
+.chapter-lede,
+.tutorial-step-card p,
+.chapter-story-card p,
+.spellbook-metaphor p,
+.spellbook-page p,
+.spellbook-page strong {
+  font-size: 1.02rem;
+}
+
+.tutorial-step-card strong,
+.spellbook-modal__nav span {
+  font-size: 1rem;
+}
+
+.tutorial-step-card pre,
+.spellbook-page pre {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.spellbook-page__number {
+  font-size: 0.86rem;
+}
+
 @media (max-width: 840px) {
   .tutorial-steps,
   .spellbook-pages,
@@ -262,5 +317,9 @@
   .spellbook-modal {
     overflow-y: auto;
     -ms-overflow-style: none;
+  }
+
+  .spellbook-modal--book-only {
+    overflow: visible;
   }
 }

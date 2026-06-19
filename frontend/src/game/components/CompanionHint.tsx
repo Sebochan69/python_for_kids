@@ -6,8 +6,8 @@ type CompanionHintProps = {
   hints: string[];
 };
 
-const COMPANION_IDLE_ASSET = '/assets/companions/owl/companion_idle.png';
-const COMPANION_PORTRAIT_ASSET = '/assets/companions/owl/companion_portrait.png';
+const COMPANION_WINGS_DOWN_ASSET = '/assets/companions/owl/companion_wings_down.png';
+const COMPANION_WINGS_UP_ASSET = '/assets/companions/owl/companion_wings_up.png';
 
 function hideMissingAsset(event: SyntheticEvent<HTMLImageElement>) {
   event.currentTarget.style.opacity = '0';
@@ -33,7 +33,7 @@ export function CompanionHint({ challengeId, spellId, hints }: CompanionHintProp
   return (
     <div className={`companion-hint ${isOpen ? 'is-open' : ''}`} aria-label="Companion hints">
       <div className="companion-hint__portrait">
-        <img src={isOpen ? COMPANION_PORTRAIT_ASSET : COMPANION_IDLE_ASSET} alt="Owl companion" onError={hideMissingAsset} />
+        <img src={isOpen ? COMPANION_WINGS_UP_ASSET : COMPANION_WINGS_DOWN_ASSET} alt="Owl companion" onError={hideMissingAsset} />
       </div>
       <div className="companion-hint__body">
         <span className="section-kicker">Owl Guide</span>

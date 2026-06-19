@@ -142,19 +142,19 @@
       "type": "normal",
       "title": "The Glimmer Gate",
       "enemy": {
-        "id": "dim-rune",
-        "name": "Dim Rune",
+        "id": "skeleton-soldier",
+        "name": "Skeleton Soldier",
         "hp": 6,
         "maxHp": 6,
-        "description": "A sleepy rune blocks the hallway until it sees a few steady word spells.",
+        "description": "A tiny training skeleton guards the hallway until it sees a few steady word spells.",
         "intent": {
           "type": "attack",
           "amount": 1,
-          "text": "Dim Rune attacks for 1. Missed chants make it zap for 2."
+          "text": "Skeleton Soldier pokes for 1. Missed chants make it poke for 2."
         }
       },
-      "setupText": "The first gate needs a few word sparks. Fill the blank so the crystal remembers Glow. Dim Rune attacks after each turn, and missed chants make it hit harder.",
-      "victoryText": "The rune glows bright, gives one last happy blink, and the gate opens.",
+      "setupText": "The first gate has a tiny skeleton guard. Fill the blank so the crystal remembers Glow. Skeleton Soldier attacks after each turn, and missed chants make it hit harder.",
+      "victoryText": "The skeleton guard tumbles over, the gate glows bright, and the path opens.",
       "challenge": {
         "id": "store-glow",
         "challengeType": "fill_blank",

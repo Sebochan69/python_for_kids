@@ -135,6 +135,21 @@
   padding: 9px;
 }
 
+.side-quest-screen {
+  font-size: 1rem;
+}
+
+.dojo-banner p,
+.side-quest-story p,
+.side-quest-feedback-card p {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.side-quest-story strong {
+  font-size: 1rem;
+}
+
 @media (max-width: 980px) {
   .side-quest-screen {
     height: auto;
